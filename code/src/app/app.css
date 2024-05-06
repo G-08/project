@@ -1,0 +1,35 @@
+:root {
+  --dark-theme: #1d1717;
+  --white-theme: #ffffff;
+}
+
+  #app {
+  width: 393px;
+  height: 852px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: var(--white-theme);
+  border: 2px solid transparent;
+  border-radius: 25px;
+}
+
+/*Ricordarsi di cercare il modo per metterli centralmente senza usare position absolute*/
+.container {
+  position: absolute;
+  top: 35%;
+  left: 35%;
+}
+
+.container h1 {
+  color: black; font-size: 20px;
+}
+
+#button1 {
+  background-color:#3db8ee;
+  font-weight: bold;
+  border: 1px solid #3db8ee;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  color: white;
+}
