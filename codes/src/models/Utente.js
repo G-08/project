@@ -53,6 +53,10 @@ const userSchema = new Schema (
             type: Number,
             required: true,
         },
+        starting_condition: {
+            type: Number,
+            required: true,
+        },
         user_goal: {
             type: Number,
             required: true,
