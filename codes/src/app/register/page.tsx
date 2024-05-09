@@ -6,6 +6,7 @@ import { AccountForm } from "./AccountForm"
 import { GoalForm } from "./GoalForm"
 import { useMultistepForm } from "./useMultistepForm"
 import { UserForm } from "./userForm"
+import { useRouter } from 'next/router'
 
 type FormData = {
   email: string
@@ -41,7 +42,8 @@ const INITIAL_DATA: FormData = {
   goal: ""
 }
 const Register = () => {
-  
+  const [error, setError] = useState("");
+  const router = useRouter();
   const [data, setData] = useState(INITIAL_DATA)
   function updateFields(fields: Partial<FormData>) {
     setData(prev => {
@@ -72,6 +74,64 @@ const Register = () => {
     const biceps = fd.biceps;
     const initials = fd.initial;
     const goal = fd.goal;
+
+    if (!isValidEmail(email)) {
+      setError("This email is invalid");
+      return;
+    }
+    if (!conainsCharacters(firstName, lastName)) {
+      return;
+    }
+    if (!containsUpperCase(firstName, lastName, password)){
+      return;
+    }
+    if (!containsLowerCase(firstName, lastName, password)){
+      return;
+    }
+    if (!containsNumber(password, age, user_weight, user_height, thighs, shoulders, waist, biceps, initials, goal, initials)) {
+      return;
+    }
+    if (correctFormat(age)) {
+      return;
+    }
+    if (!password || password.length < 8) {
+      setError("Password is invalid");
+      return;
+    }
+
+    try {
+      const res = await fetch("api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          firstName,
+          lastName,
+          password,
+          username,
+          age,
+          user_weight,
+          user_height,
+          thighs,
+          shoulders,
+          waist,
+          biceps,
+          initials,
+          goal,
+        }),
+      })
+      if (res.status === 400) {
+        setError("This email is already registered");
+      }if (res.status === 200) {
+        setError("");
+        router.push("/login");
+      }
+    } catch (error) {
+      setError("Error try again");
+      console.log(error);
+    }
     alert("Account creato correttamente")
   }
 
@@ -98,6 +158,7 @@ const Register = () => {
                   </button>
                 )}
                 <button type="submit">{isLastStep ? "Finish" : "Next"}</button>
+                <p>{error && error}</p>
               </div>
             </form>
             <Link href="/login">Hai già un account? Effettua l'accesso</Link>
@@ -107,3 +168,7 @@ const Register = () => {
 }
 
 export default Register
+
+function isValidEmail(email: string) {
+    throw new Error('Function not implemented.')
+  }
