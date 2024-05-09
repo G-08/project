@@ -56,6 +56,14 @@ export function UserForm({
         value={age}
         onChange={e => updateFields({ age: e.target.value })}
       />
+      <label>Altezza</label>
+      <input
+        required
+        className="text-black"
+        type="number"
+        value={user_height}
+        onChange={e => updateFields({ user_height: Number(e.target.value) })}
+      />
       <label>Peso</label>
       <input
         required

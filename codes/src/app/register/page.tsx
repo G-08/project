@@ -55,26 +55,23 @@ const Register = () => {
       <GoalForm {...data} updateFields={updateFields} />
     ])
 
-  const submitHandler = async (e: any) => {
+  const submitHandler = async (e: FormEvent, fd: FormData) => {
     e.preventDefault()
     if (!isLastStep) return next()
-    /*const email = e.target[0].value;
-    const firstName = e.target[1].value;
-    const lastName = e.target[2].value;
-    const password = e.target[3].value;
-    const username = e.target[4].value;
-    const age = e.target[5].value;
-    const user_weight = e.target[6].value;
-    const user_height = e.target[7].value;
-    const thighs = e.target[8].value;
-    const shoulders = e.target[9].value;
-    const waist = e.target[10].value;
-    const biceps = e.target[11].value;*/
-    const initials = e.target[12].value;
-    const goal = e.target[13].value;
-    
-    //console.log(email, firstName, lastName, username, password, age, user_weight, user_height);
-    console.log(initials, goal);
+    const email = fd.email;
+    const firstName = fd.firstName;
+    const lastName = fd.lastName;
+    const password = fd.password;
+    const username = fd.username;
+    const age = fd.age;
+    const user_weight = fd.user_weight;
+    const user_height = fd.user_height;
+    const thighs = fd.thighs;
+    const shoulders = fd.shoulders;
+    const waist = fd.waist;
+    const biceps = fd.biceps;
+    const initials = fd.initial;
+    const goal = fd.goal;
     alert("Account creato correttamente")
   }
 
@@ -82,7 +79,7 @@ const Register = () => {
     <div className='flex min-h-screen flex-col items-center justify-between p-24'>
         <div>
             <h1>Registrazione mongobonni</h1>
-            <form onSubmit={submitHandler}>
+            <form onSubmit={e => submitHandler(e, data)}>
               <div style={{ position: "absolute", top: ".5rem", right: ".5rem" }}>
                 {currentStepIndex + 1} / {steps.length}
               </div>
