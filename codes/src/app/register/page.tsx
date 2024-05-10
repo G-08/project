@@ -42,8 +42,8 @@ const INITIAL_DATA: FormData = {
   goal: ""
 }
 const Register = () => {
-  const [error, setError] = useState("");
-  const router = useRouter();
+/*   const [error, setError] = useState("");
+  const router = useRouter(); */
   const [data, setData] = useState(INITIAL_DATA)
   function updateFields(fields: Partial<FormData>) {
     setData(prev => {
@@ -75,7 +75,7 @@ const Register = () => {
     const initials = fd.initial;
     const goal = fd.goal;
 
-    if (!isValidEmail(email)) {
+/*     if (!isValidEmail(email)) {
       setError("This email is invalid");
       return;
     }
@@ -131,7 +131,7 @@ const Register = () => {
     } catch (error) {
       setError("Error try again");
       console.log(error);
-    }
+    }*/
     alert("Account creato correttamente")
   }
 
@@ -158,7 +158,7 @@ const Register = () => {
                   </button>
                 )}
                 <button type="submit">{isLastStep ? "Finish" : "Next"}</button>
-                <p>{error && error}</p>
+{/*                 <p>{error && error}</p> */}
               </div>
             </form>
             <Link href="/login">Hai già un account? Effettua l'accesso</Link>
