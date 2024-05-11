@@ -21,7 +21,7 @@ export function AccountForm({
     <FormWrapper title="Creazione Account">
       <label>Email</label>
       <input
-        className="text-black"
+        className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
         autoFocus
         required
         type="email"
@@ -30,7 +30,7 @@ export function AccountForm({
       />
       <label>Username</label>
       <input
-        className="text-black"
+        className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
         autoFocus
         required
         type="string"
@@ -39,7 +39,7 @@ export function AccountForm({
       />
       <label>Password</label>
       <input
-        className="text-black"
+        className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
         required
         type="password"
         value={password}

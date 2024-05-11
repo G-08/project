@@ -137,8 +137,10 @@ const Register = () => {
 
   return (
     <div className='flex min-h-screen flex-col items-center justify-between p-24'>
-        <div>
-            <h1>Registrazione mongobonni</h1>
+        <div className='bg-white px-10 py-10 rounded-xl shadow-sm'>
+            <h1 className='underline'>Registrazione FitGym44</h1>
+            <br></br>
+            <br></br>
             <form onSubmit={e => submitHandler(e, data)}>
               <div style={{ position: "absolute", top: ".5rem", right: ".5rem" }}>
                 {currentStepIndex + 1} / {steps.length}
@@ -157,11 +159,11 @@ const Register = () => {
                     Back
                   </button>
                 )}
-                <button type="submit">{isLastStep ? "Finish" : "Next"}</button>
+                <button type="submit" className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md'>{isLastStep ? "Finish" : "Next"}</button>
 {/*                 <p>{error && error}</p> */}
               </div>
             </form>
-            <Link href="/login">Hai già un account? Effettua l'accesso</Link>
+            <Link href="/login" className=' hover:text-sky-600'>Hai già un account? Effettua l'accesso</Link>
         </div>
     </div>
   )
