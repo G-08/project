@@ -131,13 +131,16 @@ const Register = () => {
           goal,
         }),
       })
+      
       if (res.status === 400) {
         setError("This email is already registered");
       }if (res.status === 200) {
+        console.log("sono qua");
         setError("");
-        router.push("../login");
+        router.push("/login");
       }
     } catch (error) {
+      console.log("sono in errore 500");
       setError("Error try again");
       console.log(error);
     }

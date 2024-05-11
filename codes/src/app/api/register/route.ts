@@ -6,23 +6,31 @@ import { NextResponse } from "next/server";
 export const POST = async (request: any) => {
     const {
         email,
-        username,
-        password,
-        initial,
-        goal,
-        updateFields,
-        firstName,
-        lastName,
-        age,
-        user_height,
-        user_weight,
-        thighs,
-        shoulders,
-        waist,
-        biceps,
+          firstName,
+          lastName,
+          password,
+          username,
+          date_of_birth,
+          user_weight,
+          user_height,
+          thighs,
+          shoulders,
+          waist,
+          biceps,
+          initials,
+          goal,
     } = await request.json();
-
-    await connect();
+    
+    console.log("sono nell'api ");
+    
+    try{
+        await connect();
+    }catch(error: any){
+        return new NextResponse(error, {
+            status: 217, 
+        });
+    }
+    
 
     const existingUser = await Utente.findOne({email});
 
@@ -33,20 +41,19 @@ export const POST = async (request: any) => {
     const hashedPassword = await bcrypt.hash(password, 5);
     const newUtente = new Utente({
         email,
-        username,
-        password: hashedPassword,
-        initial,
-        goal,
-        updateFields,
-        firstName,
-        lastName,
-        age,
-        user_height,
-        user_weight,
-        thighs,
-        shoulders,
-        waist,
-        biceps,
+          firstName,
+          lastName,
+          password: hashedPassword,
+          username,
+          date_of_birth,
+          user_weight,
+          user_height,
+          thighs,
+          shoulders,
+          waist,
+          biceps,
+          initials,
+          goal,
     })
 
     try {
