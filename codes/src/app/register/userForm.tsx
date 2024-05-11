@@ -4,7 +4,7 @@ import { FormWrapper } from "./FormWrapper"
 type UserData = {
   firstName: string
   lastName: string
-  age: string
+  date_of_birth: string
   user_weight: number
   user_height: number
   thighs: number
@@ -20,7 +20,7 @@ type UserFormProps = UserData & {
 export function UserForm({
   firstName,
   lastName,
-  age,
+  date_of_birth,
   user_height,
   user_weight,
   thighs,
@@ -53,8 +53,8 @@ export function UserForm({
         required
         className="text-black"
         type="string"
-        value={age}
-        onChange={e => updateFields({ age: e.target.value })}
+        value={date_of_birth}
+        onChange={e => updateFields({ date_of_birth: e.target.value })}
       />
       <label>Altezza</label>
       <input
