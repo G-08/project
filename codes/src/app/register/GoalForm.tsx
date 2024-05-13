@@ -19,7 +19,7 @@ export function GoalForm({
     <FormWrapper title="Condizioni Fiscica">
       <label>Condizione iniziale</label>
       <input
-        className="text-black"
+        className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
         autoFocus
         required
         type="text"
@@ -28,7 +28,7 @@ export function GoalForm({
       />
       <label>Obiettivo</label>
       <input
-        className="text-black"
+        className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
         required
         type="text"
         value={goal}

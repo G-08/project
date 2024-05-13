@@ -7,6 +7,7 @@ import { GoalForm } from "./GoalForm"
 import { useMultistepForm } from "./useMultistepForm"
 import { UserForm } from "./userForm"
 import { useRouter } from 'next/navigation'
+import {useEffect} from "react";
 
 type FormData = {
   email: string
@@ -147,9 +148,24 @@ const Register = () => {
     alert("Account creato correttamente")
   }
 
+  const [theme, setTheme] = useState("Light");
+
+  useEffect(()=> {
+    if(theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]); 
+
+  const handleThemeSwitch = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
   return (
-    <div className='flex min-h-screen flex-col items-center justify-between p-24'>
-        <div className='bg-white px-10 py-10 rounded-xl shadow-sm'>
+    <div className='flex min-h-screen flex-col items-center justify-between p-24 dark:bg-black dark:text-white'>
+        <button onClick={handleThemeSwitch}>Switch Mode</button>
+        <div className='bg-white px-10 py-10 rounded-xl shadow-sm dark:bg-black dark:text-white'>
             <h1 className='underline'>Registrazione FitGym44</h1>
             <br></br>
             <br></br>
