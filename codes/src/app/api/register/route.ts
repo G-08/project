@@ -4,6 +4,9 @@ import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
 export const POST = async (request: any) => {
+
+    console.log("sono nell'api ");
+
     const {
         email,
           firstName,
@@ -21,15 +24,14 @@ export const POST = async (request: any) => {
           goal,
     } = await request.json();
     
-    console.log("sono nell'api ");
-    
-    try{
-        await connect();
+    await connect();
+/*     try{
+
     }catch(error: any){
         return new NextResponse(error, {
             status: 217, 
         });
-    }
+    } */
     
 
     const existingUser = await Utente.findOne({email});
@@ -41,19 +43,19 @@ export const POST = async (request: any) => {
     const hashedPassword = await bcrypt.hash(password, 5);
     const newUtente = new Utente({
         email,
-          firstName,
-          lastName,
-          password: hashedPassword,
-          username,
-          date_of_birth,
-          user_weight,
-          user_height,
-          thighs,
-          shoulders,
-          waist,
-          biceps,
-          initials,
-          goal,
+        firstName,
+        lastName,
+        password: hashedPassword,
+        username,
+        date_of_birth,
+        user_weight,
+        user_height,
+        thighs,
+        shoulders,
+        waist,
+        biceps,
+        initials,
+        goal,
     })
 
     try {

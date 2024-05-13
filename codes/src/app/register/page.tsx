@@ -163,7 +163,7 @@ const Register = () => {
   };
 
   return (
-    <div className='flex min-h-screen flex-col items-center justify-between p-24 dark:bg-black dark:text-white'>
+    <div className='flex min-h-screen flex-col items-center justify-between p-24 dark:bg-grey dark:text-white'>
         <button onClick={handleThemeSwitch}>Switch Mode</button>
         <div className='bg-white px-10 py-10 rounded-xl shadow-sm dark:bg-black dark:text-white'>
             <h1 className='underline'>Registrazione FitGym44</h1>
