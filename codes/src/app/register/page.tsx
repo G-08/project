@@ -8,6 +8,8 @@ import { useMultistepForm } from "./useMultistepForm"
 import { UserForm } from "./userForm"
 import { useRouter } from 'next/navigation'
 import {useEffect} from "react";
+import axios from 'axios'
+import { message, Form } from 'antd'
 
 type FormData = {
   email: string
@@ -42,6 +44,24 @@ const INITIAL_DATA: FormData = {
   initial: "",
   goal: ""
 }
+
+interface utente{
+  email: string
+  firstName: string
+  lastName: string
+  password: string
+  username: string
+  date_of_birth: string
+  user_weight: number
+  user_height: number
+  thighs: number
+  shoulders: number
+  waist: number
+  biceps: number
+  initial: string
+  goal: string
+}
+
 const Register = () => {
   const [error, setError] = useState("");
   const router = useRouter();
@@ -58,23 +78,85 @@ const Register = () => {
       <GoalForm {...data} updateFields={updateFields} />
     ])
 
+  const onRegister = async (values: utente) => {
+    if (!isLastStep) return next();
+
+    if (!isValidEmail(data.email)) {
+      setError("This email is invalid");
+      return;
+    }
+    if (!containsOnlyCharacters(data.firstName, data.lastName)) {
+      setError("first name or last name is invalid");
+      return;
+    }
+    if (!containsUpperCase(data.password)){
+      setError("password must have uppercase characters");
+      return;
+    }
+    if (!containsLowerCase(data.password)){
+      setError("password must have lowercase characters");
+      return;
+    }
+    if (!containsNumber(data.password)) {
+      setError("password must have a number");
+      return;
+    }
+    if (!correctFormat(data.date_of_birth)) {
+      setError("Date of birth is bad formed");
+      return;
+    }
+    if (data.user_height <= 0 || data.user_weight <= 0 || data.thighs <= 0 || data.shoulders <= 0 || data.waist <= 0 || data.biceps <= 0) {
+      setError("Misure non valide");
+      return;
+    }
+    if (!data.password || data.password.length < 8) {
+      setError("Password is invalid");
+      return;
+    }
+
+    values.email = data.email;
+    values.firstName = data.firstName;
+    values.lastName = data.lastName;
+    values.password = data.password;
+    values.username = data.username;
+    values.date_of_birth = data.date_of_birth;
+    values.user_weight = data.user_weight;
+    values.user_height = data.user_height;
+    values.thighs = data.thighs;
+    values.shoulders = data.shoulders;
+    values.waist = data.waist;
+    values.biceps = data.biceps;
+    values.initial = data.initial;
+    values.goal = data.goal;
+    
+    try{
+      await axios.post("api/register", values);
+      message.success("utente registrato");
+      router.push("/login");
+    }catch(error: any){
+      message.error(error.response.data.message);
+    }
+    
+  };
+
+  /*
   const submitHandler = async (e: FormEvent, fd: FormData) => {
     e.preventDefault()
     if (!isLastStep) return next()
-    const email = fd.email;
-    const firstName = fd.firstName;
-    const lastName = fd.lastName;
-    const password = fd.password;
-    const username = fd.username;
-    const date_of_birth = fd.date_of_birth;
-    const user_weight = fd.user_weight;
-    const user_height = fd.user_height;
-    const thighs = fd.thighs;
-    const shoulders = fd.shoulders;
-    const waist = fd.waist;
-    const biceps = fd.biceps;
-    const initials = fd.initial;
-    const goal = fd.goal;
+    const email = data.email;
+    const firstName = data.firstName;
+    const lastName = data.lastName;
+    const password = data.password;
+    const username = data.username;
+    const date_of_birth = data.date_of_birth;
+    const user_weight = data.user_weight;
+    const user_height = data.user_height;
+    const thighs = data.thighs;
+    const shoulders = data.shoulders;
+    const waist = data.waist;
+    const biceps = data.biceps;
+    const initials = data.initial;
+    const goal = data.goal;
 
      if (!isValidEmail(email)) {
       setError("This email is invalid");
@@ -146,7 +228,7 @@ const Register = () => {
       console.log(error);
     }
     alert("Account creato correttamente")
-  }
+  }*/
 
   const [theme, setTheme] = useState("Light");
 
@@ -169,7 +251,7 @@ const Register = () => {
             <h1 className='underline'>Registrazione FitGym44</h1>
             <br></br>
             <br></br>
-            <form onSubmit={e => submitHandler(e, data)}>
+            <Form onFinish={onRegister}>
               <div style={{ position: "absolute", top: ".5rem", right: ".5rem" }}>
                 {currentStepIndex + 1} / {steps.length}
               </div>
@@ -188,9 +270,9 @@ const Register = () => {
                   </button>
                 )}
                 <button type="submit" className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md'>{isLastStep ? "Finish" : "Next"}</button>
-                <p>{error && error}</p>
+                <br></br> <p>{error && error}</p>
               </div>
-            </form>
+            </Form>
             <Link href="/login" className=' hover:text-sky-600'>Hai già un account? Effettua l'accesso</Link>
         </div>
     </div>
@@ -198,6 +280,7 @@ const Register = () => {
 }
 
 export default Register
+
 
 function isValidEmail(email: string): boolean {
   const regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
