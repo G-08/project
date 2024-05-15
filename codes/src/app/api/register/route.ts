@@ -1,13 +1,11 @@
 import Utente from "@/models/Utente";
-import connect from "@/utils/db";
+import connect from  "@/app/utils/db"
 import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 
-connect();
 
 export async function POST  (request: NextRequest)  {
-
-    console.log("sono nell'api ");
+    await connect();
 
     try{
         const reqBody = await request.json();
@@ -27,7 +25,7 @@ export async function POST  (request: NextRequest)  {
         newUtente.save();
 
         return NextResponse.json({
-            messsage: "utente creato correttamente",
+            message: "utente creato correttamente",
             data: newUtente,
         })
 

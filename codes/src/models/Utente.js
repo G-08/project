@@ -15,15 +15,15 @@ const userSchema = new mongoose.Schema (
             type: String,
             required: true,
         },
-        first_name: {
+        firstName: {
             type: String,
             required: true,
         },
-        last_name: {
+        lastName: {
             type: String,
             required: true,
         },
-        dob: {
+        date_of_birth: {
             type: String,
             required: true,
         },
@@ -35,28 +35,28 @@ const userSchema = new mongoose.Schema (
             type: Number,
             required: true,
         },
-        user_thighs: {
+        thighs: {
             type: Number,
             required: true,
         },
-        user_shoulders: {
+        shoulders: {
             type: Number,
             required: true,
         },
-        user_waist: {
+        waist: {
             type: Number,
             required: true,
         },
-        user_biceps: {
+        biceps: {
             type: Number,
             required: true,
         },
-        starting_condition: {
-            type: Number,
+        initial: {
+            type: String,
             required: true,
         },
-        user_goal: {
-            type: Number,
+        goal: {
+            type: String,
             required: true,
         }
     },
