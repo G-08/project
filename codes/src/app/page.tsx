@@ -22,7 +22,8 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24 dark:bg-black dark:text-white">
       <button className='bg-grey' onClick={handleThemeSwitch}>Switch Mode</button>
       <h1>FitGym</h1>
-      <Link href="/register">registrati</Link>
+      <Link href="/login">login</Link>
+      <Link href="/register">registrazione</Link>
     </main>
   );
 }

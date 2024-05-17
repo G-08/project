@@ -1,5 +1,5 @@
 import Utente from "@/models/Utente";
-import connect from  "@/app/utils/db"
+import connect from  "@/utils/db"
 import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 

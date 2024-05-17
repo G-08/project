@@ -1,6 +1,6 @@
 
 import Utente from "@/models/Utente";
-import connect from '@/app/utils/db';
+import connect from '@/utils/db';
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
@@ -14,9 +14,10 @@ export async function POST( request: NextRequest) {
             throw new Error("Utente non registrato"); 
         }
         // password match
+        /*
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(reqBody.password, salt);
-        console.log(hashedPassword ,"     ", user.password);
+        console.log(hashedPassword ,"     ", user.password);*/
         
         const passwordMatch = await bcrypt.compare(reqBody.password, user.password);
 
