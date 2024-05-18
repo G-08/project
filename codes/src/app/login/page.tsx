@@ -34,7 +34,7 @@ const Login = () => {
     }
   }
   return (
-    <div>
+    <div className='flex min-h-screen flex-col items-center justify-between p-24 dark:bg-grey dark:text-white'>
       <h1>Login</h1>
       <Form onFinish={onLogin}>
         <label>Email</label>

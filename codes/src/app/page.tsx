@@ -1,10 +1,11 @@
-"use client"
+'use client'
 import Image from "next/image";
 import Link from "next/link";
 import {useState, useEffect} from "react";
 
 export default function Home() {
   const [theme, setTheme] = useState("Light");
+  //const userId = await validateJWT(request);
 
   useEffect(()=> {
     if(theme === "dark") {
@@ -24,6 +25,7 @@ export default function Home() {
       <h1>FitGym</h1>
       <Link href="/login">login</Link>
       <Link href="/register">registrazione</Link>
+      {}
     </main>
   );
 }
