@@ -56,20 +56,11 @@ const Profilo = () => {
   const getData = async () => {
     try {
       const response = await axios.get("/api/auth/getUserData");
-      //console.log(response.data.data.username);
+      console.log("!!!!!!!!!!", response.data.username);
 
-      data.username = response.data.data.username;
-      data.firstName = response.data.data.firstName;
-      data.lastName = response.data.data.lastName;
-      data.date_of_birth = response.data.data.date_of_birth;
-      data.user_height = response.data.data.user_height;
-      data.user_weight = response.data.data.user_weight;
-      data.thighs = response.data.data.thighs;
-      data.shoulders = response.data.shooulders;
-      data.waist = response.data.data.waist;
-      data.biceps = response.data.data.biceps;
+      setData(response.data.data)
 
-      //console.log("!!! ", data.username, "  ", data.date_of_birth);
+      console.log("!!! ", data.username, "  ", data.date_of_birth);
     } catch (error: any) {
       message.error(error.response.data.message);
     }
@@ -110,7 +101,8 @@ const Profilo = () => {
 
     <div className='flex'>
       <Sidebar></Sidebar>
-      <p>Profilo</p>
+      <h1>Profilo</h1>
+      <p>{data.biceps}</p>
       <Form  onFinish={updateUser}
       /*initialValues={{
         username: data.username,
