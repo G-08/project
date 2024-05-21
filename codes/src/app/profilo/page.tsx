@@ -2,7 +2,6 @@
 import { Button, Form, message } from 'antd'
 import axios from 'axios';
 import { useRouter } from 'next/navigation'
-import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from 'react'
 import Sidebar from '@/components/sidebar';
 
@@ -110,6 +109,7 @@ const Profilo = () => {
   return (
 
     <div className='flex'>
+      <Sidebar></Sidebar>
       <p>Profilo</p>
       <Form  onFinish={updateUser}
       /*initialValues={{
