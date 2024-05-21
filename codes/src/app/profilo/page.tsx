@@ -3,7 +3,8 @@ import { Button, Form, message } from 'antd'
 import axios from 'axios';
 import { useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from "react-redux";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import Sidebar from '@/components/sidebar';
 
 type FormData = {
   firstName: string
@@ -91,11 +92,26 @@ const Profilo = () => {
   }
 
   getData();
+  
+  const [theme, setTheme] = useState("Light");
+
+  useEffect(()=> {
+    if(theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]); 
+
+  const handleThemeSwitch = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   return (
-    <div>Profilo
-      <Button onClick={onLogout}>logout</Button>
-      <p>{data.date_of_birth}</p>
+
+    <div className='flex'>
+      <Sidebar></Sidebar>
+      <p>Profilo</p>
       <Form  onFinish={updateUser}
       /*initialValues={{
         username: data.username,
@@ -197,6 +213,8 @@ const Profilo = () => {
       </Form.Item>
       <button type="submit" className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md'>salva</button>
       </Form>
+
+      <Button onClick={onLogout}>logout</Button>
 
     </div>
   )

@@ -132,8 +132,8 @@ const Register = () => {
     try{
       await axios.post("api/register", values);
       message.success("utente registrato");
-      await axios.post("api/creaScheda", values);
-      router.push("/login");
+/*       await axios.post("api/creaScheda", values);
+ */      router.push("/login");
     }catch(error: any){
       message.error(error.response.data.message);
     }
