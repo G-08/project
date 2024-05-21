@@ -110,7 +110,6 @@ const Profilo = () => {
   return (
 
     <div className='flex'>
-      <Sidebar></Sidebar>
       <p>Profilo</p>
       <Form  onFinish={updateUser}
       /*initialValues={{
