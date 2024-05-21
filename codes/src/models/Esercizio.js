@@ -6,11 +6,11 @@ const exerciseSchema = new mongoose.Schema (
             type: Number,
             required: true,
         }, 
-        nome: {
+        name: {
             type: String,
             required: true,
         },
-        gruppo_muscolare: {
+        muscular_group: {
             type: String,
             required: true,
         },
