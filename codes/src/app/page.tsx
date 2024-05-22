@@ -1,4 +1,5 @@
 'use client'
+import Sidebar from "@/components/sidebar";
 import Image from "next/image";
 import Link from "next/link";
 import {useState, useEffect} from "react";
@@ -21,6 +22,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24 dark:bg-black dark:text-white">
+      <Sidebar></Sidebar>
       <button className='bg-grey' onClick={handleThemeSwitch}>Switch Mode</button>
       <h1>FitGym44</h1>
       <Link href="/login">login</Link>
