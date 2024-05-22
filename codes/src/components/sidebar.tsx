@@ -24,6 +24,7 @@ export default function Sidebar() {
                                         className={`cursor-pointer block float-left mr-2 duration-500 ${isOpen && 'rotate-[360deg]'}`}
                                     /> 
         },
+        
     ];
 
     return (

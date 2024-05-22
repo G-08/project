@@ -4,6 +4,9 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import Sidebar from '@/components/sidebar';
+import FormProfilo from '@/components/formProfilo';
+import Utente from '@/models/Utente';
+import { useSelector } from 'react-redux';
 
 type FormData = {
   firstName: string
@@ -48,41 +51,14 @@ interface utente{
   goal: string
 }
 
+
 const Profilo = () => {
+  console.log("!! sono in profilo");
+  const { currentUser } = useSelector((state: any) => state.user);
 
+  console.log("!!", currentUser);
   const router = useRouter();
-  const [data, setData] = useState(INITIAL_DATA)
-  
-  const getData = async () => {
-    try {
-      const response = await axios.get("/api/auth/getUserData");
-      console.log("!!!!!!!!!!", response.data.username);
-
-      setData(response.data.data)
-
-      console.log("!!! ", data.username, "  ", data.date_of_birth);
-    } catch (error: any) {
-      message.error(error.response.data.message);
-    }
-  };
-  
-  const onLogout = async () => {
-    try {
-     
-      await axios.get("/api/auth/logout");
-      message.success("Logout successfully");
-      router.push("/login");
-    } catch (error: any) {
-      message.error(error.response.data.message);
-    }
-  };
-
-  const updateUser = async () =>{
-
-  }
-
-  getData();
-  
+    
   const [theme, setTheme] = useState("Light");
 
   useEffect(()=> {
@@ -102,14 +78,9 @@ const Profilo = () => {
     <div className='flex'>
       <Sidebar></Sidebar>
       <h1>Profilo</h1>
-      <p>{data.biceps}</p>
-      <Form  onFinish={updateUser}
-      /*initialValues={{
-        username: data.username,
-        firstName: data.firstName,
-      }  
-      }*/>
-  
+      <p>{currentUser.firstName}</p>
+      
+      <Form>
       <label>Username</label>
       <Form.Item name="username">
         <input
@@ -117,7 +88,7 @@ const Profilo = () => {
           autoFocus
           required
           type="string"
-          value={data.username}
+          value={currentUser.username}
         />
       </Form.Item>
       <label>Nome</label>
@@ -127,7 +98,7 @@ const Profilo = () => {
           autoFocus
           required
           type="text"
-          value={data.firstName}
+          //value={data.firstName}
         />
       </Form.Item>
       <label>Cognome</label>
@@ -136,8 +107,8 @@ const Profilo = () => {
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
           required
           type="text"
-          value={data.lastName}
-        />
+  /*         value={data.lastName}
+  */      />
       </Form.Item>
       <label>Data di nascita</label>
       <Form.Item name="date_of_birth">
@@ -145,8 +116,8 @@ const Profilo = () => {
           required
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
           type="string"
-          value={data.date_of_birth}
-        />
+  /*         value={data.date_of_birth}
+  */      />
       </Form.Item>
       <label>Altezza (in cm)</label>
       <Form.Item name = "user_height">
@@ -154,8 +125,8 @@ const Profilo = () => {
           required
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
           type="number"
-          value={data.user_height}
-        />
+  /*         value={data.user_height}
+  */      />
       </Form.Item>
       <label>Peso (in kg)</label>
       <Form.Item name = "user_weight">
@@ -163,8 +134,8 @@ const Profilo = () => {
           required
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
           type="number"
-          value={data.user_weight}
-        />
+  /*         value={data.user_weight}
+  */      />
       </Form.Item>
       <label>Circonferenza Gambe (in cm)</label>
       <Form.Item name = "thighs">
@@ -172,8 +143,8 @@ const Profilo = () => {
           required
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
           type="number"
-          value={data.thighs}
-        />
+  /*         value={data.thighs}
+  */      />
       </Form.Item>
       <label>Ampiezza Spalle (in cm)</label>
       <Form.Item name = "shoulders">
@@ -181,8 +152,8 @@ const Profilo = () => {
           required
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
           type="number"
-          value={data.shoulders}
-        />
+  /*         value={data.shoulders}
+  */      />
       </Form.Item>
       <label>Circonferenza Vita (in cm)</label>
       <Form.Item name = "waist">
@@ -190,8 +161,8 @@ const Profilo = () => {
           required
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
           type="number"
-          value={data.waist}
-        />
+  /*         value={data.waist}
+  */      />
       </Form.Item>
       <label>Circonferenza Bicipiti (in cm)</label>
       <Form.Item name = "biceps">
@@ -199,13 +170,13 @@ const Profilo = () => {
           required
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
           type="number"
-          value={data.biceps}
-        />
+  /*         value={data.biceps}
+  */      />
       </Form.Item>
       <button type="submit" className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md'>salva</button>
-      </Form>
+    </Form>
 
-      <Button onClick={onLogout}>logout</Button>
+      <Button>logout</Button>
 
     </div>
   )

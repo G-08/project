@@ -7,6 +7,7 @@ connect();
 
 export async function GET(request: NextRequest) {
   try {
+    console.log("!!! sono in get user data");
     const userId = await validateJWT(request);
     const user = await User.findById(userId).select("-password");
     return NextResponse.json({
