@@ -93,6 +93,8 @@ export async function POST (request: NextRequest)  {
         const ex_reps = default_reps*moltiplicatore1*moltiplicatore2;
         const ex_sets = defaultd_sets*moltiplicatore1*moltiplicatore2;
 
+        
+
 
         return NextResponse.json({
             message: "scheda creata correttamente",
