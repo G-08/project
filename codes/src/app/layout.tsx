@@ -2,9 +2,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import LayoutProvider from "./providers/layoutProvider";
 import { Provider } from "react-redux";
-import store from "./redux/store";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,11 +20,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider store={store}>
-          <LayoutProvider>
-            {children}
-          </LayoutProvider>
-        </Provider>        
+        {children}       
       </body>
     </html>
   );
