@@ -48,8 +48,9 @@ const Login = () => {
   };
   
   return (
-    <div className='flex min-h-screen flex-col items-center justify-between p-24 dark:bg-black dark:text-white'>
+    <div className='flex min-h-screen flex-col items-center justify-between p-40 dark:bg-black dark:text-white'>
       <button onClick={handleThemeSwitch}>Switch Mode</button>
+      <div className='bg-white px-10 py-10 rounded-xl shadow-sm dark:bg-black dark:text-white'>
       <h1>Login</h1>
       <Form onFinish={onLogin}>
         <label>Email</label>
@@ -72,8 +73,10 @@ const Login = () => {
         </Form.Item>
         <button type="submit" className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md'>Login</button>
       </Form>
-      <Link href="/register" className=' hover:text-sky-600'>Non hai un account? Registrati</Link>
-    </div>
+      <Link href="/register" className=' hover:text-sky-600 text-xs pt-5'>Non hai un account? Registrati</Link>
+    
+      </div>
+      </div>
   )
 }
 
