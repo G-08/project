@@ -4,6 +4,7 @@ import axios from 'axios';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 import React from 'react'
+import {useState, useEffect} from 'react';
 
 interface utente{
   email: string
@@ -24,6 +25,7 @@ interface utente{
 
 const Login = () => {
   const router = useRouter();
+  
   const onLogin = async (values: utente) => {
     try {
       await axios.post("api/auth/login", values);
@@ -33,8 +35,21 @@ const Login = () => {
       message.error(error.response.data.message);
     }
   }
+  const [theme, setTheme] = useState("Light");
+  useEffect(()=> {
+    if(theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]); 
+  const handleThemeSwitch = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+  
   return (
-    <div className='flex min-h-screen flex-col items-center justify-between p-24 dark:bg-grey dark:text-white'>
+    <div className='flex min-h-screen flex-col items-center justify-between p-24 dark:bg-black dark:text-white'>
+      <button onClick={handleThemeSwitch}>Switch Mode</button>
       <h1>Login</h1>
       <Form onFinish={onLogin}>
         <label>Email</label>
