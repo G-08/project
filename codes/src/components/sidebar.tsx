@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { BsArrowLeftSquareFill } from "react-icons/bs";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "antd";
 
 export default function Sidebar() {
     const [isOpen, setIsOpen] = useState(true);
@@ -24,7 +25,6 @@ export default function Sidebar() {
                                         className={`cursor-pointer block float-left mr-2 duration-500 ${isOpen && 'rotate-[360deg]'}`}
                                     /> 
         },
-        
     ];
 
     return (
@@ -56,6 +56,9 @@ export default function Sidebar() {
                         </Link>
                     </>
                 ))}
+            </div>
+            <div>
+                <Button>logout</Button>
             </div>
         </div>
     );

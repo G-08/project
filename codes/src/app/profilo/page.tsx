@@ -2,11 +2,10 @@
 import { Button, Form, message } from 'antd'
 import axios from 'axios';
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
 import Sidebar from '@/components/sidebar';
-import FormProfilo from '@/components/formProfilo';
-import Utente from '@/models/Utente';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import UpdateForm from '@/components/updateForm';
+
 
 type FormData = {
   firstName: string
@@ -33,7 +32,7 @@ const INITIAL_DATA: FormData = {
   waist: 0,
   biceps: 0,
 }
-
+/*
 interface utente{
   email: string
   firstName: string
@@ -49,17 +48,48 @@ interface utente{
   biceps: number
   initial: string
   goal: string
-}
+} */
 
+const getData = async () => {
+  try {
+    console.log("Starting data fetch from /api/auth/getUserData");
+
+    const res = await axios.get('/api/auth/getUserData', {
+      withCredentials: true, // Ensure cookies are sent with the request
+    });
+
+    if (res.status !== 200) {
+      throw new Error(`Failed to fetch data with status: ${res.status}`);
+    }
+
+    return res.data.data;
+  } catch (error: any) {
+    console.error('Error loading user data:', error.message);
+    throw error;
+  }
+};
 
 const Profilo = () => {
-  console.log("!! sono in profilo");
-  const { currentUser } = useSelector((state: any) => state.user);
 
-  console.log("!!", currentUser);
-  const router = useRouter();
-    
-  const [theme, setTheme] = useState("Light");
+  const [userData, setData] = useState(INITIAL_DATA);
+
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await getData();
+        setData(data);
+      } catch (error) {
+        console.error('Failed to load user data:', error);
+      }
+    })();
+  }, []);
+
+  if (!userData) {
+    return <div>No user data found</div>;
+  }
+  
+/*   const [theme, setTheme] = useState("Light");
 
   useEffect(()=> {
     if(theme === "dark") {
@@ -71,114 +101,17 @@ const Profilo = () => {
 
   const handleThemeSwitch = () => {
     setTheme(theme === "dark" ? "light" : "dark");
-  };
+  }; */
+
 
   return (
-
-    <div className='flex'>
-      <Sidebar></Sidebar>
-      <h1>Profilo</h1>
-      <p>{currentUser.firstName}</p>
-      
-      <Form>
-      <label>Username</label>
-      <Form.Item name="username">
-        <input
-          className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
-          autoFocus
-          required
-          type="string"
-          value={currentUser.username}
-        />
-      </Form.Item>
-      <label>Nome</label>
-      <Form.Item name = "firstName">
-        <input
-          className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
-          autoFocus
-          required
-          type="text"
-          //value={data.firstName}
-        />
-      </Form.Item>
-      <label>Cognome</label>
-      <Form.Item name = "lastName">
-        <input
-          className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
-          required
-          type="text"
-  /*         value={data.lastName}
-  */      />
-      </Form.Item>
-      <label>Data di nascita</label>
-      <Form.Item name="date_of_birth">
-        <input
-          required
-          className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
-          type="string"
-  /*         value={data.date_of_birth}
-  */      />
-      </Form.Item>
-      <label>Altezza (in cm)</label>
-      <Form.Item name = "user_height">
-        <input
-          required
-          className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
-          type="number"
-  /*         value={data.user_height}
-  */      />
-      </Form.Item>
-      <label>Peso (in kg)</label>
-      <Form.Item name = "user_weight">
-        <input
-          required
-          className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
-          type="number"
-  /*         value={data.user_weight}
-  */      />
-      </Form.Item>
-      <label>Circonferenza Gambe (in cm)</label>
-      <Form.Item name = "thighs">
-        <input
-          required
-          className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
-          type="number"
-  /*         value={data.thighs}
-  */      />
-      </Form.Item>
-      <label>Ampiezza Spalle (in cm)</label>
-      <Form.Item name = "shoulders">
-        <input
-          required
-          className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
-          type="number"
-  /*         value={data.shoulders}
-  */      />
-      </Form.Item>
-      <label>Circonferenza Vita (in cm)</label>
-      <Form.Item name = "waist">
-        <input
-          required
-          className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
-          type="number"
-  /*         value={data.waist}
-  */      />
-      </Form.Item>
-      <label>Circonferenza Bicipiti (in cm)</label>
-      <Form.Item name = "biceps">
-        <input
-          required
-          className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
-          type="number"
-  /*         value={data.biceps}
-  */      />
-      </Form.Item>
-      <button type="submit" className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md'>salva</button>
-    </Form>
-
-      <Button>logout</Button>
-
-    </div>
+    <>
+      <div className='flex'>
+        <Sidebar></Sidebar>
+        <h1>Profilo</h1>
+        <UpdateForm></UpdateForm>      
+      </div>
+    </>
   )
 }
 
