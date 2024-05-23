@@ -2,8 +2,8 @@ import connect from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";
 import Utente from "@/models/Utente";
 import Exercise from "@/models/Esercizio";
+import Allenamento from "@/models/Allenamento"
 import axios from "axios";
-import Esercizio from "@/models/Esercizio";
 
 export async function POST (request: NextRequest)  {
     await connect();
@@ -28,7 +28,7 @@ export async function POST (request: NextRequest)  {
         const addome: number[] = [];
 
         exercises.forEach(exercise => {
-            const ex = new Esercizio(exercise);
+            const ex = new Exercise(exercise);
             const group = String(ex.muscular_group).toLowerCase();
             //console.log(String(ex.muscular_group));
 
@@ -93,8 +93,8 @@ export async function POST (request: NextRequest)  {
         const ex_reps = default_reps*moltiplicatore1*moltiplicatore2;
         const ex_sets = defaultd_sets*moltiplicatore1*moltiplicatore2;
 
-        
-
+        const allenamento_gambe = new Allenamento();
+        allenamento_gambe.muscular_group="Gambe";
 
         return NextResponse.json({
             message: "scheda creata correttamente",

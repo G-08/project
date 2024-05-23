@@ -2,12 +2,16 @@ import mongoose from "mongoose";
 
 const trainingSchema = new mongoose.Schema (
     {
-        id: {
-            type: Number,
-            required: true,
-        }, 
         muscular_group: {
             type: String,
+            required: true,
+        },
+        reps_number: {
+            type: Number,
+            required: true,
+        },
+        sets_number: {
+            type: Number,
             required: true,
         },
     },
