@@ -3,10 +3,19 @@ import { NextRequest, NextResponse } from "next/server";
 import Utente from "@/models/Utente";
 import Exercise from "@/models/Esercizio";
 import Allenamento from "@/models/Allenamento"
-import axios from "axios";
+//import axios from "axios";
 
 export async function POST (request: NextRequest)  {
     await connect();
+
+    interface Esercizio{
+        id: number
+        name: string
+        muscular_group: string
+        exercise_description: string
+        reps_number: number
+        sets_number: number
+    }
 
     try{
         
@@ -14,7 +23,7 @@ export async function POST (request: NextRequest)  {
         console.log("!! sto in creaScheda");
         console.log(reqBody.initial);
 
-        const exercises = await Exercise.find({});
+        const all_exercises = await Exercise.find({});
 
         //console.log("!!!!!", exercises);
 
@@ -27,7 +36,7 @@ export async function POST (request: NextRequest)  {
         const braccia: number[] = [];
         const addome: number[] = [];
 
-        exercises.forEach(exercise => {
+        all_exercises.forEach(exercise => {
             const ex = new Exercise(exercise);
             const group = String(ex.muscular_group).toLowerCase();
             //console.log(String(ex.muscular_group));
@@ -56,42 +65,87 @@ export async function POST (request: NextRequest)  {
         console.log("!braccia: ", braccia);
         console.log("!addome: ", addome);*/
 
-        var moltiplicatore1 = 1;
-        var moltiplicatore2 = 1;
+        const moltiplicatore1 = 4-initial;
+        const moltiplicatore2 = goal;
+      
+        const selectRandomExercises = (array: number[], count: number): number[] => {
+            const selected: number[] = [];
+            while (selected.length < count && array.length > 0) {
+                const randomIndex = Math.floor(Math.random() * array.length);
+                const [removed] = array.splice(randomIndex, 1);
+                selected.push(removed);
+            }
+            return selected;
+        };
         
-        switch(initial){
-            case 1:
-                moltiplicatore1 = 3;
-                break;
-            case 2:
-                moltiplicatore1 = 2;
-                break;
-            case 3:
-                moltiplicatore1 = 1;
-                break;
-            default:
-                moltiplicatore1 = 1;
-        }
+        const ex_per_gruppo = 3;
 
-        switch(goal){
-            case 1:
-                moltiplicatore2 = 1;
-                break;
-            case 2:
-                moltiplicatore2 = 2;
-                break;
-            case 3:
-                moltiplicatore2 = 3;
-                break;
-            default:
-                moltiplicatore2 = 1;
-        }
+        const selectedGambe = selectRandomExercises(gambe, ex_per_gruppo);
+        const selectedSchiena = selectRandomExercises(schiena, ex_per_gruppo);
+        const selectedPetto = selectRandomExercises(petto, ex_per_gruppo);
+        const selectedBraccia = selectRandomExercises(braccia, ex_per_gruppo);
+        const selectedAddome = selectRandomExercises(addome, ex_per_gruppo);
+        
+        console.log('Selected Gambe:', selectedGambe);
+        const exercises_gambe: Esercizio[] = [];
+        selectedGambe.forEach(selectedID => {
+            const exerciseToAdd = all_exercises.find(exercise => exercise.id === selectedID);
+            console.log("!!! es preso: ", exerciseToAdd);
+            if (exerciseToAdd) {
+                exerciseToAdd.reps_number = exerciseToAdd.reps_number*moltiplicatore1*moltiplicatore2;
+                exerciseToAdd.sets_number = exerciseToAdd.sets_number*moltiplicatore1*moltiplicatore2;
+                exercises_gambe.push(exerciseToAdd);
+            }
+        });
+        console.log("esercizi: ", exercises_gambe);
 
-        const default_reps = 5;
-        const defaultd_sets = 3;
+        console.log('Selected Schiena:', selectedSchiena);
+        const exercises_schiena: Esercizio[] = [];
+        selectedSchiena.forEach(selectedID => {
+            const exerciseToAdd = all_exercises.find(exercise => exercise.id === selectedID);
+            if (exerciseToAdd) {
+                exerciseToAdd.reps_number = exerciseToAdd.reps_number*moltiplicatore1*moltiplicatore2;
+                exerciseToAdd.sets_number = exerciseToAdd.sets_number*moltiplicatore1*moltiplicatore2;
+                exercises_gambe.push(exerciseToAdd);
+            }
+        });
+        console.log("esercizi: ", exercises_schiena);
 
-        const ex_reps = default_reps*moltiplicatore1*moltiplicatore2;
-        const ex_sets = defaultd_sets*moltiplicatore1*moltiplicatore2;
+        console.log('Selected Petto:', selectedPetto);
+        const exercises_petto: Esercizio[] = [];
+        selectedPetto.forEach(selectedID => {    
+            const exerciseToAdd = all_exercises.find(exercise => exercise.id === selectedID);
+            if (exerciseToAdd) {
+                exerciseToAdd.reps_number = exerciseToAdd.reps_number*moltiplicatore1*moltiplicatore2;
+                exerciseToAdd.sets_number = exerciseToAdd.sets_number*moltiplicatore1*moltiplicatore2;
+                exercises_gambe.push(exerciseToAdd);
+            }
+        });
+        console.log("esercizi: ", exercises_petto);
+
+        console.log('Selected Braccia:', selectedBraccia);
+        const exercises_braccia: Esercizio[] = [];
+        selectedBraccia.forEach(selectedID => {    
+            const exerciseToAdd = all_exercises.find(exercise => exercise.id === selectedID);
+            if (exerciseToAdd) {
+                exerciseToAdd.reps_number = exerciseToAdd.reps_number*moltiplicatore1*moltiplicatore2;
+                exerciseToAdd.sets_number = exerciseToAdd.sets_number*moltiplicatore1*moltiplicatore2;
+                exercises_gambe.push(exerciseToAdd);
+            }
+        });
+        console.log("esercizi: ", exercises_braccia);
+
+        console.log('Selected Addome:', selectedAddome);
+        const exercises_addome: Esercizio[] = [];
+        selectedAddome.forEach(selectedID => {
+            const exerciseToAdd = all_exercises.find(exercise => exercise.id === selectedID);
+            if (exerciseToAdd) {
+                exerciseToAdd.reps_number = exerciseToAdd.reps_number*moltiplicatore1*moltiplicatore2;
+                exerciseToAdd.sets_number = exerciseToAdd.sets_number*moltiplicatore1*moltiplicatore2;
+                exercises_gambe.push(exerciseToAdd);
+            }
+        });
+        console.log("esercizi: ", exercises_addome);
 
         const allenamento_gambe = new Allenamento();
         allenamento_gambe.muscular_group="Gambe";

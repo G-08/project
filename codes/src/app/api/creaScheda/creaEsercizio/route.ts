@@ -4,20 +4,24 @@ import { NextResponse } from "next/server";
 
 interface Esercizio{
     id: number
-    nome: string
-    gruppo_muscolare: string
+    name: string
+    muscular_group: string
     exercise_description: string
+    reps_number: number
+    sets_number: number
 }
 
-export async function POST  ()  {
-    await connect();
-
+export async function GET  ()  {
+    
     try{
+        await connect();
         const newExercise = new Esercizio({
-            id: 1,
-            nome: "Panca Piana",
-            gruppo_muscolare: "Petto",
-            exercise_description: "Esercizio per sviluppare i muscoli pettorali. Si esegue sdraiati su una panca con i piedi ben piantati a terra, sollevando un bilanciere verso l'alto."
+            id: 100,
+            name: "Panca Piana",
+            muscular_group: "Petto",
+            exercise_description: "Esercizio per sviluppare i muscoli pettorali. Si esegue sdraiati su una panca con i piedi ben piantati a terra, sollevando un bilanciere verso l'alto.",
+            reps_number: 5,
+            sets_number: 3
         });
         
 
