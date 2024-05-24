@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import { BsArrowLeftSquareFill } from "react-icons/bs";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "antd";
+import axios from "axios";
+import router from "next/router";
 
 export default function Sidebar() {
     const [isOpen, setIsOpen] = useState(true);
@@ -24,8 +27,17 @@ export default function Sidebar() {
                                         className={`cursor-pointer block float-left mr-2 duration-500 ${isOpen && 'rotate-[360deg]'}`}
                                     /> 
         },
-        
     ];
+
+    
+    const handleLogout = async () => {
+        try {
+            await axios.post('/api/auth/logout', {}, { withCredentials: true });
+            router.push('/login'); // Redirect to the login page after logout
+        } catch (error) {
+            console.error('Error logging out:', error);
+        }
+    };
 
     return (
         <div className={`bg-white h-screen p-5 pt-8 ${isOpen ? 'w-72' : 'w-20'} duration-300 relative`}>
@@ -56,6 +68,9 @@ export default function Sidebar() {
                         </Link>
                     </>
                 ))}
+            </div>
+            <div className="mt-4">
+                <Button onClick={handleLogout} className='bg-red-500 hover:bg-red-700 text-white'>Logout</Button>
             </div>
         </div>
     );
