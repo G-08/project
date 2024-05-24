@@ -53,7 +53,7 @@ const Login = () => {
       <div className='bg-white px-10 py-10 rounded-xl shadow-sm dark:bg-black dark:text-white'>
       <h1>Login</h1>
       <Form onFinish={onLogin}>
-        <label>Email</label>
+        <label className='dark:text-white'>Email</label>
         <Form.Item name="email">
           <input
             className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
@@ -63,7 +63,7 @@ const Login = () => {
           />
         </Form.Item>
         
-        <label>Password</label>
+        <label className='dark:text-white'>Password</label>
         <Form.Item name="password">
           <input
             className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
