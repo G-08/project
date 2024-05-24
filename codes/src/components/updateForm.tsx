@@ -46,6 +46,7 @@ interface utente{
 }
 
 const getData = async () => {
+    console.log("!!!!!!!!! sono in getData");
     try {
         console.log("Starting data fetch from /api/getUserData");
 
@@ -82,10 +83,12 @@ const updateData = async (newData: FormData) => {
 };
 
 const UpdateForm = () => {
+    console.log('!!!!!!!!!!!!!!!!!! sono in updateForm');
     const [userData, setUserData] = useState<FormData>(INITIAL_DATA);
 
     useEffect(() => {
         (async () => {
+            console.log('!!!!!!!!!!!!!!!!!! sono in use effect');
             try {
                 const data = await getData();
                 setUserData(data);
