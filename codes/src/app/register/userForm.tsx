@@ -32,7 +32,7 @@ export function UserForm({
 }: UserFormProps) {
   return (
     <FormWrapper title="Dati Utente">
-      <label>Nome</label>
+      <label className='dark:text-white'>Nome</label>
       <Form.Item name = "firstName">
         <input
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
@@ -43,7 +43,7 @@ export function UserForm({
           onChange={e => updateFields({ firstName: e.target.value })}
         />
       </Form.Item>
-      <label>Cognome</label>
+      <label className='dark:text-white'>Cognome</label>
       <Form.Item name = "lastName">
         <input
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
@@ -53,7 +53,7 @@ export function UserForm({
           onChange={e => updateFields({ lastName: e.target.value })}
         />
       </Form.Item>
-      <label>Data di nascita</label>
+      <label className='dark:text-white'>Data di nascita</label>
       <Form.Item name="date_of_birth">
         <input
           required
@@ -63,7 +63,7 @@ export function UserForm({
           onChange={e => updateFields({ date_of_birth: e.target.value })}
         />
       </Form.Item>
-      <label>Altezza (in cm)</label>
+      <label className='dark:text-white'>Altezza (in cm)</label>
       <Form.Item name = "user_height">
         <input
           required
@@ -73,7 +73,7 @@ export function UserForm({
           onChange={e => updateFields({ user_height: Number(e.target.value) })}
         />
       </Form.Item>
-      <label>Peso (in kg)</label>
+      <label className='dark:text-white'>Peso (in kg)</label>
       <Form.Item name = "user_weight">
         <input
           required
@@ -83,7 +83,7 @@ export function UserForm({
           onChange={e => updateFields({ user_weight: Number(e.target.value) })}
         />
       </Form.Item>
-      <label>Circonferenza Gambe (in cm)</label>
+      <label className='dark:text-white'>Circonferenza Gambe (in cm)</label>
       <Form.Item name = "thighs">
         <input
           required
@@ -93,7 +93,7 @@ export function UserForm({
           onChange={e => updateFields({ thighs: Number(e.target.value) })}
         />
       </Form.Item>
-      <label>Ampiezza Spalle (in cm)</label>
+      <label className='dark:text-white'>Ampiezza Spalle (in cm)</label>
       <Form.Item name = "shoulders">
         <input
           required
@@ -103,7 +103,7 @@ export function UserForm({
           onChange={e => updateFields({ shoulders: Number(e.target.value) })}
         />
       </Form.Item>
-      <label>Circonferenza Vita (in cm)</label>
+      <label className='dark:text-white'>Circonferenza Vita (in cm)</label>
       <Form.Item name = "waist">
         <input
           required
@@ -113,7 +113,7 @@ export function UserForm({
           onChange={e => updateFields({ waist: Number(e.target.value) })}
         />
       </Form.Item>
-      <label>Circonferenza Bicipiti (in cm)</label>
+      <label className='dark:text-white'>Circonferenza Bicipiti (in cm)</label>
       <Form.Item name = "biceps">
         <input
           required

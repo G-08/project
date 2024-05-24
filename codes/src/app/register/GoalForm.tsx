@@ -18,7 +18,7 @@ export function GoalForm({
 }: GoalFormProps) {
   return (
     <FormWrapper title="Condizioni Fiscica">
-      <label>Condizione iniziale</label>
+      <label className='dark:text-white'>Condizione iniziale</label>
       <Form.Item name="initial">
       <input
         className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
@@ -29,7 +29,7 @@ export function GoalForm({
         onChange={e => updateFields({ initial: e.target.value })}
       />
       </Form.Item>
-      <label>Obiettivo</label>
+      <label className='dark:text-white'>Obiettivo</label>
       <Form.Item name="goal">
       <input
         className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"

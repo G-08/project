@@ -22,7 +22,7 @@ export function AccountForm({
   return (
     <FormWrapper title="Creazione Account">
       
-      <label>Email</label>
+      <label className='dark:text-white'>Email</label>
       <Form.Item name="email">
         <input
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
@@ -33,7 +33,7 @@ export function AccountForm({
           onChange={e => updateFields({ email: e.target.value })}
         />
       </Form.Item>
-      <label>Username</label>
+      <label className='dark:text-white'>Username</label>
       <Form.Item name="username">
         <input
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
@@ -45,7 +45,7 @@ export function AccountForm({
         />
       </Form.Item>
       
-      <label>Password</label>
+      <label className='dark:text-white'>Password</label>
       <Form.Item name="password">
         <input
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
