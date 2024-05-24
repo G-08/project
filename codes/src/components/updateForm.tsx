@@ -47,16 +47,16 @@ interface utente{
 
 const getData = async () => {
     try {
-        console.log("Starting data fetch from /api/auth/getUserData");
+        console.log("Starting data fetch from /api/getUserData");
 
-        const res = await axios.get('../api/auth/getUserData', {
+        const res = await axios.get('../api/getUserData', {
             withCredentials: true, // Ensure cookies are sent with the request
         });
 
         if (res.status !== 200) {
             throw new Error(`Failed to fetch data with status: ${res.status}`);
         }
-
+        console.log("AAAAAAAAAAAAAAAA", res.data.data);
         return res.data.data;
     } catch (error: any) {
         console.error('Error loading user data:', error.message);
@@ -66,7 +66,7 @@ const getData = async () => {
 
 const updateData = async (newData: FormData) => {
   try {
-      const res = await axios.post('/api/auth/updateUserData', newData, {
+      const res = await axios.post('/api/updateUserData', newData, {
           withCredentials: true,
       });
 
@@ -98,7 +98,7 @@ const UpdateForm = () => {
     if (!userData) {
         return <div>No user data found</div>;
     }
-
+    
     const Menu = [
         { name: "Username", value: userData.username, type: "string", key: "username" },
         { name: "Nome", value: userData.firstName, type: "string", key: "firstName" },
@@ -121,24 +121,25 @@ const UpdateForm = () => {
     };
     
     const handleSubmit = async (event: React.FormEvent) => {
-      event.preventDefault();
       try {
           await updateData(userData);
+          console.log(userData);
           alert('User data updated successfully');
       } catch (error) {
           console.error('Failed to update user data:', error);
           alert('Failed to update user data');
       }
-  };
+    };
 
     return (
       <Form onFinish={handleSubmit}>
-          {Menu.map((menu, index) => (
+            <p>{userData.username}</p>
+            {Menu.map((menu, index) => (
                 <div className='flex' key={index}>
-                    <label>{menu.name}</label>
+                    <label className='text-white'>{menu.name}</label>
                     <Form.Item name={menu.name}>
                         <input
-                            className="text-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
+                            className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
                             autoFocus
                             required
                             type={menu.type}
