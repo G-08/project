@@ -45,7 +45,7 @@ const Profilo = () => {
       <div className='flex dark:bg-black dark:text-white'>
         <Sidebar></Sidebar>
         <h1>Profilo</h1>
-        <UpdateForm></UpdateForm>      
+        <UpdateForm></UpdateForm>
       </div>
     </>
   );
