@@ -49,6 +49,23 @@ const getData = async () => {
     }
 };
 
+const updateData = async (newData: FormData) => {
+  try {
+      const res = await axios.post('/api/auth/updateUserData', newData, {
+          withCredentials: true,
+      });
+
+      if (res.status!== 200) {
+          throw new Error(`Failed to update data with status: ${res.status}`);
+      }
+
+      return res.data;
+  } catch (error: any) {
+      console.error('Error updating user data:', error.message);
+      throw error;
+  }
+};
+
 const UpdateForm = () => {
   console.log("!!!!!!!!!!! sono in UpdateForm");
   const [userData, setUserData] = useState(INITIAL_DATA);
@@ -81,6 +98,25 @@ const UpdateForm = () => {
         { name: "Circonferenza Vita (in cm)", value: userData.username, type: "number" },
         { name: "Circonferenza Bicipiti (in cm)", value: userData.username, type: "number" },
     ]
+
+    const handleChange = (key: keyof FormData) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      setUserData({
+          ...userData,
+          [key]: key === 'user_weight' || key === 'user_height' || key === 'thighs' || key === 'shoulders' || key === 'waist' || key === 'biceps' ? Number(value) : value,
+      });
+    };
+  
+    const handleSubmit = async (event: React.FormEvent) => {
+      event.preventDefault();
+      try {
+          await updateData(userData);
+          alert('User data updated successfully');
+      } catch (error) {
+          console.error('Failed to update user data:', error);
+          alert('Failed to update user data');
+      }
+    };
 
     return(
         <Form>
