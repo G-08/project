@@ -71,33 +71,36 @@ const UpdateForm = () => {
   const [userData, setUserData] = useState(INITIAL_DATA);
 
 
-    useEffect(() => {
-      console.log("!!!!!!!!!!! sono in usesEffect");
-      (async () => {
+  useEffect(() => {
+    console.log("useEffect triggered");
+
+    const fetchData = async () => {
         try {
-          const data = await getData();
-          setUserData(data);
+            const data = await getData();
+            setUserData(data);
         } catch (error) {
-          console.error('Failed to load user data:', error);
+            console.error('Failed to fetch user data', error);
         }
-      })();
-    }, []);
+    };
+
+    fetchData();
+  }, []);
   
     if (!userData) {
       return <div>No user data found</div>;
     }
     const Menu = [
-        { name: "Username", value: userData.username, type: "string"},
-        { name: "Nome", value: userData.username, type: "string"},
-        { name: "Cognome", value: userData.username, type: "string" },
-        { name: "Data di nascita", value: userData.username, type: "string" },
-        { name: "Altezza (in cm)", value: userData.username, type: "number" },
-        { name: "Peso (in kg)", value: userData.username, type: "number" },
-        { name: "Circonferenza Gambe (in cm)", value: userData.username, type: "number" },
-        { name: "Ampiezza Spalle (in cm)", value: userData.username, type: "number" },
-        { name: "Circonferenza Vita (in cm)", value: userData.username, type: "number" },
-        { name: "Circonferenza Bicipiti (in cm)", value: userData.username, type: "number" },
-    ]
+      { name: "Username", value: userData.username, type: "string", key: "username" },
+      { name: "Nome", value: userData.firstName, type: "string", key: "firstName" },
+      { name: "Cognome", value: userData.lastName, type: "string", key: "lastName" },
+      { name: "Data di nascita", value: userData.date_of_birth, type: "string", key: "date_of_birth" },
+      { name: "Altezza (in cm)", value: userData.user_height, type: "number", key: "user_height" },
+      { name: "Peso (in kg)", value: userData.user_weight, type: "number", key: "user_weight" },
+      { name: "Circonferenza Gambe (in cm)", value: userData.thighs, type: "number", key: "thighs" },
+      { name: "Ampiezza Spalle (in cm)", value: userData.shoulders, type: "number", key: "shoulders" },
+      { name: "Circonferenza Vita (in cm)", value: userData.waist, type: "number", key: "waist" },
+      { name: "Circonferenza Bicipiti (in cm)", value: userData.biceps, type: "number", key: "biceps" },
+  ];
 
     const handleChange = (key: keyof FormData) => (event: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target;
@@ -119,27 +122,26 @@ const UpdateForm = () => {
     };
 
     return(
-        <Form>
-            {Menu.map((menu, index) => (
-                <>
+      <Form onFinish={handleSubmit}>
+          {Menu.map((menu, index) => (
+                <div className='flex' key={index}>
                     <label>{menu.name}</label>
                     <Form.Item name={menu.name}>
                         <input
-                            key={index}
-                            className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
+                            className="text-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
                             autoFocus
                             required
-                            type={menu.type} 
+                            type={menu.type}
                             value={menu.value}
+                            onChange={handleChange(menu.key as keyof FormData)}
                         />
                     </Form.Item>
-                </>
+                </div>
             ))}
 
             <button type="submit" className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md'>salva</button>
-
         </Form>
-    )
+    );
 }
 
 export default UpdateForm
