@@ -32,12 +32,18 @@ export default function Sidebar() {
     
     const handleLogout = async () => {
         try {
-            await axios.post('/api/auth/logout', {}, { withCredentials: true });
-            router.push('/login'); // Redirect to the login page after logout
+            // Remove the token from localStorage or cookies
+            // For example, if you are using cookies:
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    
+            // Redirect the user to the login page
+            window.location.href = "/login"; // Replace "/login" with the appropriate logout page or any other page you want to redirect to
         } catch (error) {
-            console.error('Error logging out:', error);
+            console.error("Error logging out:", error);
+            // Handle error if needed
         }
     };
+    
 
     return (
         <div className={`bg-white h-screen p-5 pt-8 ${isOpen ? 'w-72' : 'w-20'} duration-300 relative`}>
