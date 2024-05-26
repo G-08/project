@@ -35,7 +35,7 @@ export default function Sidebar() {
         try {
             await axios.get("/api/auth/logout");
             message.success("Logout avvenuto correttamente");
-            router.push("/login");
+            router.push("/");
           } catch (error: any) {
             message.error(error.message);
           }
