@@ -1,4 +1,6 @@
-import { Form } from 'antd';
+'use client'
+
+import { Form, message } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
@@ -119,16 +121,17 @@ const UpdateForm = () => {
   const handleSubmit = async () => {
     try {
       await updateData(userData);
-      alert('User data updated successfully');
+      message.success('User data updated successfully');
       setEditingField(null); // Reset editingField after successful submit
     } catch (error) {
       console.error('Failed to update user data:', error);
-      alert('Failed to update user data');
+      message.error('Failed to update user data');
     }
   };
 
   return (
     <Form onFinish={handleSubmit}>
+        <h1>Form aggiornamento dati</h1>
       {Menu.map((menu, index) => (
         <div className='flex items-center mb-4' key={index}>
           <label className='text-white mr-2'>{menu.name}</label>
