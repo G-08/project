@@ -4,12 +4,13 @@ import React, { useState } from "react";
 import { BsArrowLeftSquareFill } from "react-icons/bs";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import axios from "axios";
-import router from "next/router";
+import { useRouter } from 'next/navigation'
 
 export default function Sidebar() {
     const [isOpen, setIsOpen] = useState(true);
+    const router = useRouter();
     const Menus = [
         { title: "Allenamento", dest: "/scheda", icon: <Image
                                             src='/icons8-gym-100.png'
@@ -32,16 +33,12 @@ export default function Sidebar() {
     
     const handleLogout = async () => {
         try {
-            // Remove the token from localStorage or cookies
-            // For example, if you are using cookies:
-            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    
-            // Redirect the user to the login page
-            window.location.href = "/login"; // Replace "/login" with the appropriate logout page or any other page you want to redirect to
-        } catch (error) {
-            console.error("Error logging out:", error);
-            // Handle error if needed
-        }
+            await axios.get("/api/auth/logout");
+            message.success("Logout avvenuto correttamente");
+            router.push("/login");
+          } catch (error: any) {
+            message.error(error.message);
+          }
     };
     
 

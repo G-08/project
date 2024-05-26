@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const workoutSchema = new mongoose.Schema(
+const CustomExersciseSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -26,4 +26,4 @@ const workoutSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.Workout || mongoose.model("Workout", workoutSchema);
+export default mongoose.models.CustomExercise || mongoose.model("CustomExercise", CustomExersciseSchema);

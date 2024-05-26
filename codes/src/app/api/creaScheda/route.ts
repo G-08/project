@@ -2,7 +2,8 @@ import connect from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";
 import Utente from "@/models/Utente";
 import Exercise from "@/models/Esercizio";
-import Workout from "@/models/Workout"
+import CustomExercise from "@/models/EserciziPersonal"
+import Workout from "@/models/Allenamento"
 import Scheda from "@/models/Scheda"
 //import axios from "axios";
 
@@ -28,8 +29,8 @@ export async function POST (request: NextRequest)  {
 
         //console.log("!!!!!", exercises);
 
-        const initial = reqBody.initial;
-        const goal = reqBody.goal;
+        const initial = 2 //reqBody.initial;
+        const goal = 3 //reqBody.goal;
         
         const gambe: number[] = [];
         const schiena: number[] = [];
@@ -157,40 +158,47 @@ export async function POST (request: NextRequest)  {
         //console.log("esercizi: ", exercises_addome);
 
 
-        // Funzione per salvare una lista di esercizi e restituire gli ObjectId
-        const saveWorkouts = async (exercises: any[]) => {
+        // Funzione per salvare una lista di esercizi personalizzati e restituire gli ObjectId
+        const saveCustomExercises = async (exercises: any[], m_group: String) => {
             try {
-              // Rimuove gli _id esistenti per evitare duplicati
-              const exercisesToSave = exercises.map(ex => {
-                const { _id, ...rest } = ex;
-                return rest;
-              });
-              const savedWorkouts = await Workout.insertMany(exercisesToSave);
-              return savedWorkouts.map(w => w._id);
-            } catch (error) {
-              console.error('Error saving workouts:', error);
-              throw error;
-            }
-          };
+                const exercisesToSave = exercises.map(ex => {
+                    const customEx = new CustomExercise();
+                    customEx.name= ex.name;
+                    customEx.muscular_group= m_group;
+                    customEx.exercise_description= ex.exercise_description;
+                    customEx.reps_number= ex.reps_number;
+                    customEx.sets_number= ex.sets_number;
+                    return customEx;
+                });
 
-        // Salvataggio degli allenamenti nel database
+                console.log("exerciseToSave: ", exercisesToSave);
+        
+                const savedExercises = await CustomExercise.insertMany(exercisesToSave);
+                return savedExercises.map(ex => ex._id);
+            } catch (error) {
+                console.error('Error saving custom exercises:', error);
+                throw error;
+            }
+        };
+
+        // Salvataggio degli esercizi personalizzati nel database
         console.log("\n\nsto per salvare i gambe\n");
-        const workoutGambeIds = await saveWorkouts(exercises_gambe);
+        const exercisesGambeIds = await saveCustomExercises(exercises_gambe, "gambe");
         console.log("\n\nho salvato i gambe\n");
-        const workoutSchienaIds = await saveWorkouts(exercises_schiena);
+        const exercisesSchienaIds = await saveCustomExercises(exercises_schiena, "schiena");
         console.log("\n\nho salvato i schiena\n");
-        const workoutPettoIds = await saveWorkouts(exercises_petto);
+        const exercisesPettoIds = await saveCustomExercises(exercises_petto, "petto");
         console.log("\n\nho salvato i petto\n");
-        const workoutBracciaIds = await saveWorkouts(exercises_braccia);
+        const exercisesBracciaIds = await saveCustomExercises(exercises_braccia, "braccia");
         console.log("\n\nho salvato i braccia\n");
-        const workoutAddomeIds = await saveWorkouts(exercises_addome);
+        const exercisesAddomeIds = await saveCustomExercises(exercises_addome, "addome");
         console.log("\n\nho salvato i addome\n");
 
-        console.log("workoutGambe: ", workoutGambeIds);
-        console.log("\nworkoutSchiena: ", workoutSchienaIds);
-        console.log("\nworkoutPetto: ", workoutPettoIds);
-        console.log("\nworkoutBraccia: ", workoutBracciaIds);
-        console.log("\nworkoutAddome: ", workoutAddomeIds);
+        console.log("exercisesGambe: ", exercisesGambeIds);
+        console.log("\nexercisesSchiena: ", exercisesSchienaIds);
+        console.log("\nexercisesPetto: ", exercisesPettoIds);
+        console.log("\nexercisesBraccia: ", exercisesBracciaIds);
+        console.log("\nexercisesAddome: ", exercisesAddomeIds);
 
         /*
         const workoutGambe = exercises_gambe.map(ex => new Workout(ex));  
@@ -201,25 +209,43 @@ export async function POST (request: NextRequest)  {
         
         
         // Salvataggio degli allenamenti nel database
-
         const savedWorkoutGambe = await Workout.insertMany(workoutGambe);
         const savedWorkoutSchiena = await Workout.insertMany(workoutSchiena);
         const savedWorkoutPetto = await Workout.insertMany(workoutPetto);
         const savedWorkoutBraccia = await Workout.insertMany(workoutBraccia);
         const savedWorkoutAddome = await Workout.insertMany(workoutAddome);
         */
-      
+          
+        // Creazione dei workout per ogni gruppo muscolare
+        const workoutGambe = new Workout({ muscular_group: 'Gambe', exercises: exercisesGambeIds });
+        const workoutSchiena = new Workout({ muscular_group: 'Schiena', exercises: exercisesSchienaIds });
+        const workoutPetto = new Workout({ muscular_group: 'Petto', exercises: exercisesPettoIds });
+        const workoutBraccia = new Workout({ muscular_group: 'Braccia', exercises: exercisesBracciaIds });
+        const workoutAddome = new Workout({ muscular_group: 'Addome', exercises: exercisesAddomeIds });
+        console.log("workoutGambe: ", workoutGambe);
+        console.log("\nworkoutSchiena: ", workoutSchiena);
+        console.log("\nworkoutPetto: ", workoutPetto);
+        console.log("\nworkoutBraccia: ", workoutBraccia);
+        console.log("\nworkoutAddome: ", workoutAddome);
+        
+        // Salvataggio dei workout nel database
+        const savedWorkoutGambe = await workoutGambe.save();
+        const savedWorkoutSchiena = await workoutSchiena.save();
+        const savedWorkoutPetto = await workoutPetto.save();
+        const savedWorkoutBraccia = await workoutBraccia.save();
+        const savedWorkoutAddome = await workoutAddome.save();
+
         // Creazione della scheda di allenamento
         const email = reqBody.email;
         console.log("!! email: ", email);
 
         const scheda = new Scheda({
         userEmail: email,
-        gambe: workoutGambeIds,
-        schiena: workoutSchienaIds,
-        petto: workoutPettoIds,
-        braccia: workoutBracciaIds,
-        addome: workoutAddomeIds,
+        gambe: savedWorkoutGambe._id,
+        schiena: savedWorkoutSchiena._id,
+        petto: savedWorkoutPetto._id,
+        braccia: savedWorkoutBraccia._id,
+        addome: savedWorkoutAddome._id,
         });
     
         // Salvataggio della scheda di allenamento nel database
