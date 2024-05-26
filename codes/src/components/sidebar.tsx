@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { BsArrowLeftSquareFill } from "react-icons/bs";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import axios from "axios";
 import router from "next/router";
 
@@ -32,14 +32,12 @@ export default function Sidebar() {
     
     const handleLogout = async () => {
         try {
-            // Remove the token from localStorage or cookies
-            // For example, if you are using cookies:
-            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    
-            // Redirect the user to the login page
-            window.location.href = "/login"; // Replace "/login" with the appropriate logout page or any other page you want to redirect to
+            await axios.get("/api/auth/logout");
+            message.success("Logout successful");
+            router.push("/"); // Redirect to the welcome page after logout
         } catch (error) {
             console.error("Error logging out:", error);
+            message.error("Error logging out");
             // Handle error if needed
         }
     };
