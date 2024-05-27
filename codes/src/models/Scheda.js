@@ -6,36 +6,31 @@ const Scheda = new mongoose.Schema(
             type: String,
             required: true,
         },
-        gambe: [
+        gambe:
             {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Workout",
             },
-        ],
-        schiena: [
+        schiena:
             {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Workout",
             },
-        ],
-        petto: [
+        petto:
             {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Workout",
             },
-        ],
-        braccia: [
+        braccia:
             {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Workout",
             },
-        ],
-        addome: [
+        addome:
             {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Workout",
             },
-        ],
     },
   { timestamps: true }
 );
