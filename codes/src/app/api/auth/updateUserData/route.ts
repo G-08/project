@@ -22,6 +22,6 @@ export async function PUT(request: NextRequest) {
 
         return NextResponse.json({ data: updatedUser }, { status: 200 });
     } catch (error: any) {
-        return NextResponse.json({ message: error.message }, { status: 400 });
+        return NextResponse.json({ message: error.message }, { status: 500 });
     }
 }
