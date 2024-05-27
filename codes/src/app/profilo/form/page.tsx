@@ -109,6 +109,8 @@ const UpdateForm = () => {
     { name: "Ampiezza Spalle (in cm)", value: userData.shoulders, type: "number", key: "shoulders" },
     { name: "Circonferenza Vita (in cm)", value: userData.waist, type: "number", key: "waist" },
     { name: "Circonferenza Bicipiti (in cm)", value: userData.biceps, type: "number", key: "biceps" },
+    { name: "Condizione iniziale", value: userData.initial, type: "string", key: "initial" },
+    { name: "Obiettivo", value: userData.goal, type: "string", key: "goal" },
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, key: keyof FormData) => {

@@ -17,7 +17,7 @@ export function GoalForm({
   updateFields,
 }: GoalFormProps) {
   return (
-    <FormWrapper title="Condizioni Fiscica">
+    <FormWrapper title="Condizione Fisica">
       <label className='dark:text-white'>Condizione iniziale</label>
       <Form.Item name="initial">
       <input

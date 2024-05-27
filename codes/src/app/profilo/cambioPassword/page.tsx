@@ -2,6 +2,7 @@
 
 import { Form, message } from 'antd';
 import axios from 'axios';
+import Link from 'next/link';
 import React, { useState } from 'react';
 
 const changePassword = async (oldPassword: string, newPassword1: string, newPassword2: string) => {
@@ -85,6 +86,9 @@ const CambioPassword = () => {
       </Form.Item>
       <button type="submit" className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md mt-4'>
         Conferma cambio password
+      </button>
+      <button type="submit" className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md mt-4'>
+        <Link href="/profilo">Torna al profilo</Link>
       </button>
     </Form>
   );

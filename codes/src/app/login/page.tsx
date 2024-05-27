@@ -30,7 +30,7 @@ const Login = () => {
     try {
       await axios.post("api/auth/login", values);
       message.success("Login successful");
-      router.push("/profilo");
+      router.push("/scheda");
     } catch (error: any) {
       message.error(error.response.data.message);
     }
