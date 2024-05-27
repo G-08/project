@@ -27,8 +27,6 @@ export async function POST (request: NextRequest)  {
 
         const all_exercises = await Exercise.find({});
 
-        //console.log("!!!!!", exercises);
-
         const initial = 2 //reqBody.initial;
         const goal = 3 //reqBody.goal;
         
@@ -222,11 +220,13 @@ export async function POST (request: NextRequest)  {
         const workoutPetto = new Workout({ muscular_group: 'Petto', exercises: exercisesPettoIds });
         const workoutBraccia = new Workout({ muscular_group: 'Braccia', exercises: exercisesBracciaIds });
         const workoutAddome = new Workout({ muscular_group: 'Addome', exercises: exercisesAddomeIds });
-        console.log("workoutGambe: ", workoutGambe);
+        /*
+        console.log("workoutGambe.exercises: ", workoutGambe.exercises);
         console.log("\nworkoutSchiena: ", workoutSchiena);
         console.log("\nworkoutPetto: ", workoutPetto);
         console.log("\nworkoutBraccia: ", workoutBraccia);
-        console.log("\nworkoutAddome: ", workoutAddome);
+        console.log("\nworkoutAddome: ", workoutAddome);*/
+        
         
         // Salvataggio dei workout nel database
         const savedWorkoutGambe = await workoutGambe.save();
@@ -234,6 +234,7 @@ export async function POST (request: NextRequest)  {
         const savedWorkoutPetto = await workoutPetto.save();
         const savedWorkoutBraccia = await workoutBraccia.save();
         const savedWorkoutAddome = await workoutAddome.save();
+        console.log("\n\n workout salvati correttamente\n");
 
         // Creazione della scheda di allenamento
         const email = reqBody.email;
