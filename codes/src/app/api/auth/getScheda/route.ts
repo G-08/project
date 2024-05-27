@@ -44,13 +44,13 @@ export async function GET(request: NextRequest, response: NextResponse){
 
     return NextResponse.json({ data: scheda_allenamento}, { status: 200 });
   } catch (error: any) {
-    console.error("!errore 400: ", error);
+    console.error("!errore 500: ", error);
     return NextResponse.json(
       {
         message: error.message,
       },
       {
-        status: 400,
+        status: 500,
       }
     );
   }

@@ -46,6 +46,9 @@ const Profilo = () => {
           <button className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-2 rounded-md'>
             <Link href="/profilo/form">Modifica i tuoi dati</Link>
           </button>
+          <button className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-2 rounded-md'>
+            <Link href="/profilo/cambioPassword">Cambia la tua password</Link>
+          </button>
           <button
             className='bg-red-500 hover:bg-red-700 text-white px-5 py-2 rounded-md ml-4'
             onClick={showModal}

@@ -2,12 +2,11 @@
 
 import { Form, message } from 'antd';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import React, { use, useEffect, useState } from 'react';
 
 type NewFormData = {
-  _id: string;
   username: string;
-  email: string;
   firstName: string;
   lastName: string;
   date_of_birth: string;
@@ -22,9 +21,7 @@ type NewFormData = {
 }
 
 const INITIAL_DATA: NewFormData = {
-  _id: "",
   username: "",
-  email: "",
   firstName: "",
   lastName: "",
   date_of_birth: "",
@@ -80,7 +77,19 @@ const UpdateForm = () => {
     const fetchData = async () => {
       try {
         const data = await getData();
-        setUserData(data);
+        userData.username = data.username;
+        userData.firstName = data.firstName;
+        userData.lastName = data.lastName;
+        userData.date_of_birth = data.date_of_birth;
+        userData.user_weight = data.user_weight;
+        userData.user_height = data.user_height;
+        userData.thighs = data.thighs;
+        userData.shoulders = data.shoulders;
+        userData.waist = data.waist;
+        userData.biceps = data.biceps;
+        userData.initial = data.initial;
+        userData.goal = data.goal;
+        console.log("!!!!!!!!!!!!!!!!!!! ", userData);
       } catch (error) {
         console.error('Failed to fetch user data', error);
       }
@@ -159,6 +168,9 @@ const UpdateForm = () => {
 
       <button type="submit" className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md mt-4'>
         Salva Tutto
+      </button>
+      <button type="submit" className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md mt-4'>
+        <Link href="/profilo">Torna al profilo</Link>
       </button>
     </Form>
   );

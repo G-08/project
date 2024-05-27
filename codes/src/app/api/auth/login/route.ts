@@ -11,7 +11,7 @@ export async function POST( request: NextRequest) {
          // check if user exists in the DB or not 
         const user = await Utente.findOne({ email: reqBody.email });
         if (!user) { 
-            throw new Error("Utente non registrato"); 
+            return NextResponse.json({ message: 'User not found' }, { status: 404 });
         }
         // password match
         
@@ -21,20 +21,22 @@ export async function POST( request: NextRequest) {
         
         const passwordMatch = await bcrypt.compare(reqBody.password, user.password);
 
-        console.log("!!!!! pw match: ", passwordMatch);
+        //console.log("!!!!! pw match: ", passwordMatch);
 
         if (!passwordMatch) { 
-            throw new Error("Password errata"); 
-        }// create token
+            return NextResponse.json({ message: 'Old password is incorrect' }, { status: 400 });
+        }
+        
+        // create token
         const token = jwt.sign({ id: user._id }, process.env.jwt_secret!, { expiresIn: "2h"}); 
         const response = NextResponse.json({ message: "Accesso corretto", }) 
         response.cookies.set("token", token, { httpOnly: true, path: "/", });
-        return response;
+        return NextResponse.json({ message: 'User successfully logged in' }, { status: 200 });
     }
     catch (error: any) {
         return NextResponse.json({
             message: error.message, 
         },
-        { status: 400 } );
+        { status: 500 } );
     }
 }

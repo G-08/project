@@ -9,14 +9,12 @@ export async function DELETE(request: NextRequest) {
 
         // Validate JWT and get the user ID
         const userId = await validateJWT(request);
-
         if (!userId) {
             return NextResponse.json({ message: 'Invalid or missing token' }, { status: 401 });
         }
 
         // Find and delete the user by ID
         const user = await Utente.findByIdAndDelete(userId);
-
         if (!user) {
             return NextResponse.json({ message: 'User not found' }, { status: 404 });
         }

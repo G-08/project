@@ -7,7 +7,7 @@ export async function GET(){
         });
         // Remove the cookie
         response.cookies.delete("token");
-        return response;
+        return NextResponse.json({ message: 'User successfully logged out' }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ message: "Logout failed" }, { status: 500 });
     }

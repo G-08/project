@@ -28,7 +28,7 @@ export async function GET(request: NextRequest, response: NextResponse){
         message: error.message,
       },
       {
-        status: 400,
+        status: 500,
       }
     );
   }
