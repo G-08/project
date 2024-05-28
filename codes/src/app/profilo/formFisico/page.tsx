@@ -16,8 +16,8 @@ type NewFormData = {
   shoulders: number;
   waist: number;
   biceps: number;
-  initial: string;
-  goal: string;
+  initial: number;
+  goal: number;
 }
 
 const INITIAL_DATA: NewFormData = {
@@ -31,8 +31,8 @@ const INITIAL_DATA: NewFormData = {
   shoulders: 0,
   waist: 0,
   biceps: 0,
-  initial: "",
-  goal: "",
+  initial: 0,
+  goal: 0,
 }
 
 const getData = async () => {
@@ -89,7 +89,7 @@ const UpdateForm = () => {
         userData.biceps = data.biceps;
         userData.initial = data.initial;
         userData.goal = data.goal;
-        console.log("!!!!!!!!!!!!!!!!!!! ", userData);
+        printUserData(userData);
       } catch (error) {
         console.error('Failed to fetch user data', error);
       }
@@ -109,8 +109,8 @@ const UpdateForm = () => {
     { name: "Ampiezza Spalle (in cm)", value: userData.shoulders, type: "number", key: "shoulders" },
     { name: "Circonferenza Vita (in cm)", value: userData.waist, type: "number", key: "waist" },
     { name: "Circonferenza Bicipiti (in cm)", value: userData.biceps, type: "number", key: "biceps" },
-    { name: "Condizione iniziale", value: userData.initial, type: "string", key: "initial" },
-    { name: "Obiettivo", value: userData.goal, type: "string", key: "goal" },
+    { name: "Condizione iniziale", value: userData.initial, type: "number", key: "initial" },
+    { name: "Obiettivo", value: userData.goal, type: "number", key: "goal" },
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, key: keyof FormData) => {
@@ -134,6 +134,7 @@ const UpdateForm = () => {
       await updateData(userData);
       message.success('User data updated successfully');
       setEditingField(null); // Reset editingField after successful submit
+      // aggiungere funzione per ricreare scheda
     } catch (error) {
       console.error('Failed to update user data:', error);
       message.error('Failed to update user data');
@@ -171,7 +172,7 @@ const UpdateForm = () => {
       <button type="submit" className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md mt-4'>
         Salva Tutto
       </button>
-      <button type="submit" className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md mt-4'>
+      <button className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md mt-4'>
         <Link href="/profilo">Torna al profilo</Link>
       </button>
     </Form>

@@ -27,8 +27,8 @@ export async function POST (request: NextRequest)  {
 
         const all_exercises = await Exercise.find({});
 
-        const initial = 2 //reqBody.initial;
-        const goal = 3 //reqBody.goal;
+        const initial = reqBody.initial;
+        const goal = reqBody.goal;
         
         const gambe: number[] = [];
         const schiena: number[] = [];

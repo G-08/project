@@ -3,8 +3,8 @@ import { Form } from "antd"
 import { FormWrapper } from "./FormWrapper"
 
 type GoalData = {
-  initial: string
-  goal: string
+  initial: number
+  goal: number
 }
 
 type GoalFormProps = GoalData & {
@@ -24,9 +24,9 @@ export function GoalForm({
         className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
         autoFocus
         required
-        type="text"
+        type="number"
         value={initial}
-        onChange={e => updateFields({ initial: e.target.value })}
+        onChange={e => updateFields({ initial: Number(e.target.value) })}
       />
       </Form.Item>
       <label className='dark:text-white'>Obiettivo</label>
@@ -34,9 +34,9 @@ export function GoalForm({
       <input
         className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
         required
-        type="text"
+        type="number"
         value={goal}
-        onChange={e => updateFields({ goal: e.target.value })}
+        onChange={e => updateFields({ goal: Number(e.target.value) })}
       />
       </Form.Item>
     </FormWrapper>

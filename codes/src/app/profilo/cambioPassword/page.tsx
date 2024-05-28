@@ -6,27 +6,27 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 
 const changePassword = async (oldPassword: string, newPassword1: string, newPassword2: string) => {
-  console.log("!!!!!!!!!!!!!!!!!! sono dentro changePassword");
+  //console.log("!!!!!!!!!!!!!!!!!! sono dentro changePassword");
   if (newPassword1 !== newPassword2) {
-    message.error('Old and new password do not match');
+    message.error('le due password non coincidono');
   } else if (oldPassword === newPassword1) {
-    message.error('The new password is equal to the old password')
+    message.error('La nuova password non può essere uguale a quella precedente')
   } else {
     try {
-      console.log("!!!!!!!!!!!!!!!!!! sono dentro il try catch");
+      //console.log("!!!!!!!!!!!!!!!!!! sono dentro il try catch");
       const res = await axios.put('/api/auth/changePassword', {
         oldPassword,
         newPassword: newPassword1
       });
-      console.log("!!!!!!!!!!!!!!!!!! è arrivata la risposta");
+      //console.log("!!!!!!!!!!!!!!!!!! è arrivata la risposta");
 
       if (res.status !== 200) {
-        throw new Error(`Failed to update data with status: ${res.status}`);
+        throw new Error(`Errore nel cambio password. Status: ${res.status}`);
       }
 
       return res.data;
     } catch (error) {
-      console.error('Error changing password:', error);
+      console.error('Errore nel cambio password:', error);
       throw error;
     }  
   }

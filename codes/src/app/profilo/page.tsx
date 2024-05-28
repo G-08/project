@@ -44,7 +44,10 @@ const Profilo = () => {
         <div>
           <h1>Profilo</h1>
           <button className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-2 rounded-md'>
-            <Link href="/profilo/form">Modifica i tuoi dati</Link>
+            <Link href="/profilo/formPersonale">Modifica i tuoi dati personali</Link>
+          </button>
+          <button className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-2 rounded-md'>
+            <Link href="/profilo/formFisico">Modifica i tuoi dati fisici</Link>
           </button>
           <button className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-2 rounded-md'>
             <Link href="/profilo/cambioPassword">Cambia la tua password</Link>

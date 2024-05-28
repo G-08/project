@@ -24,8 +24,8 @@ type FormData = {
   shoulders: number
   waist: number
   biceps: number
-  initial: string
-  goal: string
+  initial: number
+  goal: number
 }
 
 const INITIAL_DATA: FormData = {
@@ -41,8 +41,8 @@ const INITIAL_DATA: FormData = {
   shoulders: 0,
   waist: 0,
   biceps: 0,
-  initial: "",
-  goal: ""
+  initial: 0,
+  goal: 0
 }
 
 interface utente{
@@ -58,8 +58,8 @@ interface utente{
   shoulders: number
   waist: number
   biceps: number
-  initial: string
-  goal: string
+  initial: number
+  goal: number
 }
 
 const Register = () => {

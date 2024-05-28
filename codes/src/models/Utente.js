@@ -52,11 +52,11 @@ const userSchema = new mongoose.Schema (
             required: true,
         },
         initial: {
-            type: String,
+            type: Number,
             required: true,
         },
         goal: {
-            type: String,
+            type: Number,
             required: true,
         }
     },
