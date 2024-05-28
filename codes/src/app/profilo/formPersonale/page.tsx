@@ -10,14 +10,6 @@ type NewFormData = {
   firstName: string;
   lastName: string;
   date_of_birth: string;
-  user_weight: number;
-  user_height: number;
-  thighs: number;
-  shoulders: number;
-  waist: number;
-  biceps: number;
-  initial: number;
-  goal: number;
 }
 
 const INITIAL_DATA: NewFormData = {
@@ -25,14 +17,6 @@ const INITIAL_DATA: NewFormData = {
   firstName: "",
   lastName: "",
   date_of_birth: "",
-  user_weight: 0,
-  user_height: 0,
-  thighs: 0,
-  shoulders: 0,
-  waist: 0,
-  biceps: 0,
-  initial: 0,
-  goal: 0,
 }
 
 const getData = async () => {
@@ -70,6 +54,7 @@ const updateData = async (newData: NewFormData) => {
 };
 
 const UpdateForm = () => {
+  const [error, setError] = useState("");
   const [userData, setUserData] = useState<NewFormData>(INITIAL_DATA);
   const [editingField, setEditingField] = useState<string | null>(null);
 
@@ -81,14 +66,6 @@ const UpdateForm = () => {
         userData.firstName = data.firstName;
         userData.lastName = data.lastName;
         userData.date_of_birth = data.date_of_birth;
-        userData.user_weight = data.user_weight;
-        userData.user_height = data.user_height;
-        userData.thighs = data.thighs;
-        userData.shoulders = data.shoulders;
-        userData.waist = data.waist;
-        userData.biceps = data.biceps;
-        userData.initial = data.initial;
-        userData.goal = data.goal;
         printUserData(userData);
       } catch (error) {
         console.error('Failed to fetch user data', error);
@@ -102,15 +79,7 @@ const UpdateForm = () => {
     { name: "Username", value: userData.username, type: "string", key: "username" },
     { name: "Nome", value: userData.firstName, type: "string", key: "firstName" },
     { name: "Cognome", value: userData.lastName, type: "string", key: "lastName" },
-    { name: "Data di nascita", value: userData.date_of_birth, type: "string", key: "date_of_birth" },
-    { name: "Altezza (in cm)", value: userData.user_height, type: "number", key: "user_height" },
-    { name: "Peso (in kg)", value: userData.user_weight, type: "number", key: "user_weight" },
-    { name: "Circonferenza Gambe (in cm)", value: userData.thighs, type: "number", key: "thighs" },
-    { name: "Ampiezza Spalle (in cm)", value: userData.shoulders, type: "number", key: "shoulders" },
-    { name: "Circonferenza Vita (in cm)", value: userData.waist, type: "number", key: "waist" },
-    { name: "Circonferenza Bicipiti (in cm)", value: userData.biceps, type: "number", key: "biceps" },
-    { name: "Condizione iniziale", value: userData.initial, type: "number", key: "initial" },
-    { name: "Obiettivo", value: userData.goal, type: "number", key: "goal" },
+    { name: "Data di nascita", value: userData.date_of_birth, type: "string", key: "date_of_birth" }
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, key: keyof FormData) => {
@@ -131,6 +100,14 @@ const UpdateForm = () => {
 
   const handleSubmit = async () => {
     try {
+      if (!containsOnlyCharacters(userData.firstName, userData.lastName)) {
+        setError("first name or last name is invalid");
+        return;
+      }
+      if (!correctFormat(userData.date_of_birth)) {
+        setError("Date of birth is bad formed");
+        return;
+      }
       await updateData(userData);
       message.success('User data updated successfully');
       setEditingField(null); // Reset editingField after successful submit
@@ -169,6 +146,7 @@ const UpdateForm = () => {
         </div>
       ))}
 
+      <br></br> <p>{error && error}</p>
       <button type="submit" className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md mt-4'>
         Salva Tutto
       </button>
@@ -187,4 +165,34 @@ const printUserData = (userData: NewFormData) => {
       console.log(`${key}: ${userData[key as keyof NewFormData]}`);
     }
   }
-};
+}
+
+function containsOnlyCharacters(str1: string, str2: string): boolean {
+  const regex = /^[a-zA-Z]+$/;
+  return regex.test(str1) && regex.test(str2);
+}
+
+function correctFormat(date: string): boolean {
+  const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+
+  // Verifica se la stringa soddisfa il formato della data
+  if (!regex.test(date)) {
+    return false;
+  }
+
+  // Splitta la stringa in giorno, mese e anno
+  const [giorno, mese, anno] = date.split('/').map(Number);
+  
+  // Controlla se il mese è valido (da 1 a 12)
+  if (mese < 1 || mese > 12) {
+    return false;
+  }
+
+  // Controlla i giorni in base al mese
+  const giorniPerMese = [31, anno % 4 === 0 && (anno % 100 !== 0 || anno % 400 === 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  if (giorno < 1 || giorno > giorniPerMese[mese - 1]) {
+    return false;
+  }
+
+  return true;
+}
