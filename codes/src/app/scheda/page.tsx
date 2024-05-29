@@ -2,6 +2,8 @@
 import Sidebar from "@/components/sidebar"
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useRouter } from "next/navigation";
+import { Modal, message } from "antd";
 
 interface Exercise {
   name: string;
@@ -29,6 +31,18 @@ const Scheda = () => {
     const [workoutPlan, setWorkoutPlan] = useState(null);
     const [error, setError] = useState(String);
     const [loading, setLoading] = useState(true);
+    const router = useRouter();
+
+    const onDelete = async () => {
+        try {
+            await axios.delete("/api/auth/deleteScheda");
+            message.success('Scheda eliminata correttamente');
+
+        } catch (error) {
+            console.error('Si è verificato un errore durante l\'eliminazione della scheda:', error);
+            message.error('Si è verificato un errore durante l\'eliminazione della scheda');
+        }
+    };
 
     useEffect(() => {
         const fetchWorkoutPlan = async () => {
@@ -125,7 +139,9 @@ const Scheda = () => {
                     ))}
                 </div>
             </div>
+            <button onClick={onDelete}>elimina scheda</button>
         </div>
+        
     );
 };
         
