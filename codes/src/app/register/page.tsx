@@ -114,6 +114,16 @@ const Register = () => {
       return;
     }
 
+    if (data.initial < 1 || data.initial > 3){
+      setError("Condizione iniziale non valida");
+      return;
+    }
+
+    if (data.goal < 1 || data.goal > 3){
+      setError("Obiettivo non valido");
+      return;
+    }
+
     values.email = data.email;
     values.firstName = data.firstName;
     values.lastName = data.lastName;

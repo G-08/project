@@ -20,10 +20,11 @@ export async function POST (request: NextRequest)  {
     }
 
     try{
-        
-        const reqBody = await request.json();
         console.log("!! sto in creaScheda");
-        console.log(reqBody.initial);
+        const reqBody = await request.json();
+        
+        console.log("\n!! creo la scheda di : ", reqBody.username, ", ",reqBody.email);
+        //console.log(reqBody.initial);
 
         const all_exercises = await Exercise.find({});
 

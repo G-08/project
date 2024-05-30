@@ -14,15 +14,15 @@ export async function DELETE(request: NextRequest) {
         if (!userId) {
             return NextResponse.json({ message: 'Invalid or missing token' }, { status: 401 });
         }
-        console.log("!!user id: ", userId);
+        //console.log("!!user id: ", userId);
         const user = await Utente.findById(userId);
-        console.log("!!user: ", user);
+        //console.log("!!user: ", user);
         if (!user) {
             return NextResponse.json({ message: 'Utente non trovato' }, { status: 404 });
         }
 
         const email = user.email;
-        console.log("!!email: ", email);
+        //console.log("!!email: ", email);
 
         const scheda = await Scheda.findOne({ userEmail: email });
         if (!scheda) {

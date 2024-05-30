@@ -1,15 +1,10 @@
 'use client'
-
 import { Form, message } from 'antd';
 import axios from 'axios';
 import Link from 'next/link';
 import React, { use, useEffect, useState } from 'react';
 
 type NewFormData = {
-  username: string;
-  firstName: string;
-  lastName: string;
-  date_of_birth: string;
   user_weight: number;
   user_height: number;
   thighs: number;
@@ -19,12 +14,24 @@ type NewFormData = {
   initial: number;
   goal: number;
 }
+type datiUtente = {
+  email: string
+  firstName: string
+  lastName: string
+  password: string
+  username: string
+  date_of_birth: string
+  user_weight: number
+  user_height: number
+  thighs: number
+  shoulders: number
+  waist: number
+  biceps: number
+  initial: number
+  goal: number
+}
 
 const INITIAL_DATA: NewFormData = {
-  username: "",
-  firstName: "",
-  lastName: "",
-  date_of_birth: "",
   user_weight: 0,
   user_height: 0,
   thighs: 0,
@@ -69,7 +76,31 @@ const updateData = async (newData: NewFormData) => {
   }
 };
 
-const UpdateForm = () => {
+const deleteScheda = async () => {
+  try {
+      await axios.delete("/api/auth/deleteScheda");
+      //message.success('Scheda eliminata correttamente');
+
+  } catch (error) {
+      console.error('Si è verificato un errore durante l\'eliminazione della scheda:', error);
+      message.error('Si è verificato un errore durante l\'eliminazione della scheda');
+  }
+};
+
+const updateScheda = async () => {
+  try {
+      console.log("chiamo updateScheda");
+      const scheda = await axios.post("/api/auth/updateScheda");
+      message.success('Scheda aggiornata correttamente');
+
+  } catch (error) {
+      console.error('Si è verificato un errore durante la creazione della nuova scheda:', error);
+      message.error('Si è verificato un errore durante la creazione della nuova scheda:');
+  }
+};
+
+const UpdateFormFisico = () => {
+  const [error, setError] = useState("");
   const [userData, setUserData] = useState<NewFormData>(INITIAL_DATA);
   const [editingField, setEditingField] = useState<string | null>(null);
 
@@ -77,10 +108,6 @@ const UpdateForm = () => {
     const fetchData = async () => {
       try {
         const data = await getData();
-        userData.username = data.username;
-        userData.firstName = data.firstName;
-        userData.lastName = data.lastName;
-        userData.date_of_birth = data.date_of_birth;
         userData.user_weight = data.user_weight;
         userData.user_height = data.user_height;
         userData.thighs = data.thighs;
@@ -99,10 +126,6 @@ const UpdateForm = () => {
   }, []);
 
   const Menu = [
-    { name: "Username", value: userData.username, type: "string", key: "username" },
-    { name: "Nome", value: userData.firstName, type: "string", key: "firstName" },
-    { name: "Cognome", value: userData.lastName, type: "string", key: "lastName" },
-    { name: "Data di nascita", value: userData.date_of_birth, type: "string", key: "date_of_birth" },
     { name: "Altezza (in cm)", value: userData.user_height, type: "number", key: "user_height" },
     { name: "Peso (in kg)", value: userData.user_weight, type: "number", key: "user_weight" },
     { name: "Circonferenza Gambe (in cm)", value: userData.thighs, type: "number", key: "thighs" },
@@ -131,8 +154,30 @@ const UpdateForm = () => {
 
   const handleSubmit = async () => {
     try {
+      if (userData.user_height <= 0 || userData.user_weight <= 0 || userData.thighs <= 0 || userData.shoulders <= 0 || userData.waist <= 0 || userData.biceps <= 0) {
+        setError("Misure non valide");
+        return;
+      }
+
+      if (userData.initial < 1 || userData.initial > 3){
+        setError("Condizione iniziale non valida");
+        return;
+      }
+
+      if (userData.goal < 1 || userData.goal > 3){
+        setError("Obiettivo non valido");
+        return;
+      }
+
       await updateData(userData);
-      message.success('User data updated successfully');
+      message.success('Dati fisici aggiornati correttamente');
+      
+      await deleteScheda();
+      console.log("scheda vecchia eliminata");
+
+      await updateScheda();
+      console.log("scheda nuova creata");
+
       setEditingField(null); // Reset editingField after successful submit
       // aggiungere funzione per ricreare scheda
     } catch (error) {
@@ -143,7 +188,7 @@ const UpdateForm = () => {
 
   return (
     <Form onFinish={handleSubmit}>
-        <h1>Form aggiornamento dati</h1>
+        <h1>Form aggiornamento dati fisici</h1>
       {Menu.map((menu, index) => (
         <div className='flex items-center mb-4' key={index}>
           <label className='text-white mr-2'>{menu.name}</label>
@@ -169,6 +214,7 @@ const UpdateForm = () => {
         </div>
       ))}
 
+      <br></br> <p>{error && error}</p>
       <button type="submit" className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-0.5 rounded-md mt-4'>
         Salva Tutto
       </button>
@@ -179,7 +225,7 @@ const UpdateForm = () => {
   );
 }
 
-export default UpdateForm;
+export default UpdateFormFisico;
 
 const printUserData = (userData: NewFormData) => {
   for (const key in userData) {
