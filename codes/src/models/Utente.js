@@ -58,6 +58,10 @@ const userSchema = new mongoose.Schema (
         goal: {
             type: Number,
             required: true,
+        },
+        theme: {
+            type: String,
+            required: true,
         }
     },
     { timestamps: true }

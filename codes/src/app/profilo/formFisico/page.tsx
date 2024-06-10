@@ -13,22 +13,7 @@ type NewFormData = {
   biceps: number;
   initial: number;
   goal: number;
-}
-type datiUtente = {
-  email: string
-  firstName: string
-  lastName: string
-  password: string
-  username: string
-  date_of_birth: string
-  user_weight: number
-  user_height: number
-  thighs: number
-  shoulders: number
-  waist: number
-  biceps: number
-  initial: number
-  goal: number
+  theme: string;
 }
 
 const INITIAL_DATA: NewFormData = {
@@ -40,7 +25,25 @@ const INITIAL_DATA: NewFormData = {
   biceps: 0,
   initial: 0,
   goal: 0,
+  theme: ""
 }
+
+const getTheme = async () => {
+  try {
+    const res = await axios.get('/api/auth/getUserData', {
+      withCredentials: true,
+    });
+
+    if (res.status !== 200) {
+      throw new Error(`Failed to fetch data with status: ${res.status}`);
+    }
+
+    return res.data.data.theme;
+  } catch (error: any) {
+    console.error('Error loading user data:', error.message);
+    throw error;
+  }
+};
 
 const getData = async () => {
   try {
@@ -103,6 +106,20 @@ const UpdateFormFisico = () => {
   const [error, setError] = useState("");
   const [userData, setUserData] = useState<NewFormData>(INITIAL_DATA);
   const [editingField, setEditingField] = useState<string | null>(null);
+  const [theme, setTheme] = useState(""); // State lifted up
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getTheme();
+        setTheme(data); // Update the theme in the parent component
+      } catch (error) {
+        console.error('Failed to fetch user data', error);
+      }
+    };
+
+    fetchData();
+  }, [setTheme]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -116,6 +133,7 @@ const UpdateFormFisico = () => {
         userData.biceps = data.biceps;
         userData.initial = data.initial;
         userData.goal = data.goal;
+        userData.theme = data.theme;
         printUserData(userData);
       } catch (error) {
         console.error('Failed to fetch user data', error);

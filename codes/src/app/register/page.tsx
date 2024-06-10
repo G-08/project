@@ -26,6 +26,7 @@ type FormData = {
   biceps: number
   initial: number
   goal: number
+  theme: string
 }
 
 const INITIAL_DATA: FormData = {
@@ -42,7 +43,8 @@ const INITIAL_DATA: FormData = {
   waist: 0,
   biceps: 0,
   initial: 0,
-  goal: 0
+  goal: 0,
+  theme: "white"
 }
 
 interface utente{
@@ -60,6 +62,7 @@ interface utente{
   biceps: number
   initial: number
   goal: number
+  theme: string
 }
 
 const Register = () => {
@@ -138,6 +141,8 @@ const Register = () => {
     values.biceps = data.biceps;
     values.initial = data.initial;
     values.goal = data.goal;
+    values.theme = data.theme;
+    console.log("!!!!!!!!!!!!", values.theme);
     
     try{
       await axios.post("api/register", values);

@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 
 
-export async function POST  (request: NextRequest)  {
+export async function POST (request: NextRequest)  {
     await connect();
 
     try{
@@ -19,6 +19,8 @@ export async function POST  (request: NextRequest)  {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(reqBody.password, salt);
         reqBody.password = hashedPassword;
+
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAA", reqBody.theme);
 
         const newUtente = new Utente(reqBody);
 

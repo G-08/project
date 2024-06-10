@@ -5,6 +5,14 @@ import axios from 'axios';
 import { useRouter } from "next/navigation";
 import { Modal, message } from "antd";
 
+type UserData = {
+    theme: string;
+}
+
+const INITIAL_DATA: UserData = {
+    theme: ""
+}
+
 interface Exercise {
   name: string;
   muscular_group: string;
@@ -27,12 +35,43 @@ interface WorkoutPlan {
     addome: Workout;
 }
 
+const getTheme = async () => {
+    try {
+      const res = await axios.get('/api/auth/getUserData', {
+        withCredentials: true,
+      });
+  
+      if (res.status !== 200) {
+        throw new Error(`Failed to fetch data with status: ${res.status}`);
+      }
+  
+      return res.data.data.theme;
+    } catch (error: any) {
+      console.error('Error loading user data:', error.message);
+      throw error;
+    }
+};
+
 const Scheda = () => {
     const [workoutPlan, setWorkoutPlan] = useState(null);
     const [error, setError] = useState(String);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
+    const [theme, setTheme] = useState(""); // State lifted up
 
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const data = await getTheme();
+          setTheme(data); // Update the theme in the parent component
+        } catch (error) {
+          console.error('Failed to fetch user data', error);
+        }
+      };
+  
+      fetchData();
+    }, [setTheme]);
+    
     const onDelete = async () => {
         try {
             await axios.delete("/api/auth/deleteScheda");
@@ -66,6 +105,20 @@ const Scheda = () => {
         }
     }, [workoutPlan]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const data = await getTheme();
+            userData.theme = data;
+          } catch (error) {
+            console.error('Failed to fetch user data', error);
+          }
+        };
+    
+        fetchData();
+      }, [userData]);
+
+    console.log("!!!!!!!!!!!!!!!", userData.theme);
     if (loading) {
         return <div>Loading...</div>;
     }
