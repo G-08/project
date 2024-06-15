@@ -37,7 +37,7 @@ interface WorkoutPlan {
 
 const getTheme = async () => {
     try {
-      const res = await axios.get('/api/auth/getUserData', {
+      const res = await axios.get('/api/auth/getUserTheme', {
         withCredentials: true,
       });
   
@@ -45,7 +45,7 @@ const getTheme = async () => {
         throw new Error(`Failed to fetch data with status: ${res.status}`);
       }
   
-      return res.data.data.theme;
+      return res.data;
     } catch (error: any) {
       console.error('Error loading user data:', error.message);
       throw error;
