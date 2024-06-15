@@ -105,20 +105,6 @@ const Scheda = () => {
         }
     }, [workoutPlan]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const data = await getTheme();
-            userData.theme = data;
-          } catch (error) {
-            console.error('Failed to fetch user data', error);
-          }
-        };
-    
-        fetchData();
-      }, [userData]);
-
-    console.log("!!!!!!!!!!!!!!!", userData.theme);
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -133,7 +119,7 @@ const Scheda = () => {
 
     return (
         <div className='flex dark:bg-black dark:text-white'>
-            <Sidebar />
+            <Sidebar theme={theme} setTheme={setTheme} /> {/* Pass theme and setTheme as props */}
             <div>
                 <h1>Scheda allenamento</h1>
                 <div>
