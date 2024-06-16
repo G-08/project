@@ -26,15 +26,14 @@ export async function POST( request: NextRequest) {
         //console.log("!!!!! pw match: ", passwordMatch);
 
         if (!passwordMatch) { 
-            return NextResponse.json({ message: 'Old password is incorrect' }, { status: 400 });
+            return NextResponse.json({ message: 'password is incorrect' }, { status: 400 });
         }
         
         // create token
         const token = jwt.sign({ id: user._id }, process.env.jwt_secret!, { expiresIn: "2h"}); 
-        console.log("AAAAAAAAAAAAAA token: ", token);
-        const response = NextResponse.json({ message: "Accesso corretto", }) 
+        const response = NextResponse.json({ message: "Accesso corretto" }, { status: 200 }) 
         response.cookies.set("token", token, { httpOnly: true, path: "/", });
-        console.log("AAAAAAAAAAAAAA cookies: ", response.cookies);
+
         return response;
     }
     catch (error: any) {

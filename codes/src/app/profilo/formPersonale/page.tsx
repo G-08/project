@@ -57,7 +57,7 @@ const getData = async () => {
 
 const updateData = async (newData: NewFormData) => {
   try {
-    const res = await axios.put('/api/auth/updateUserData', newData, {
+      const res = await axios.put('/api/auth/updateUserData', newData, {
       withCredentials: true,
     });
 

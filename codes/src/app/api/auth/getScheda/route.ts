@@ -37,14 +37,14 @@ export async function GET(request: NextRequest, response: NextResponse){
       .exec();
 
     if (!scheda_allenamento) {
-      return NextResponse.json({ message: 'Scheda non trovata' }, { status: 402});
+      return NextResponse.json({ message: 'Scheda non trovata' }, { status: 404});
     }
 
     //console.log("!!sto per ritornare questa scheda: ", scheda_allenamento);
 
     return NextResponse.json({ data: scheda_allenamento}, { status: 200 });
   } catch (error: any) {
-    console.error("!errore 500: ", error);
+    console.error("errore 500: ", error);
     return NextResponse.json(
       {
         message: error.message,
