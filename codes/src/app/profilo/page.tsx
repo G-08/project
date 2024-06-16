@@ -7,6 +7,10 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 
+const updateTheme = async () => {
+
+};
+
 const getTheme = async () => {
   try {
     const res = await axios.get('/api/auth/getUserTheme', {

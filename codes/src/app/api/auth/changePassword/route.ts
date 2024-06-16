@@ -20,11 +20,6 @@ export async function PUT(request: NextRequest) {
 
     // Find the user by ID
     const user = await Utente.findById(userId);
-    if (!user) {
-      //console.log("User not found with userId:", userId);
-      return NextResponse.json({ message: 'Non è stato trovato l utente' }, { status: 404 });
-    }
-    console.log("User found:", user);
 
     const requestBody = await request.json();
     const { oldPassword, newPassword } = requestBody;

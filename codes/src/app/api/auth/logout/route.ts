@@ -2,9 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(){
     try{
-        const response = NextResponse.json({
-            message: "Logout successful",
-        });
+        const response = NextResponse.json({ message: "Logout successful"}, { status: 200 });
         // Remove the cookie
         response.cookies.delete("token");
         return response;

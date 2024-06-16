@@ -219,11 +219,13 @@ export async function POST (request: NextRequest)  {
         });
     
         // Salvataggio della scheda di allenamento nel database
-        const savedWorkoutPlan = await scheda.save();
+        await scheda.save();
       
         return NextResponse.json({
             message: "scheda creata correttamente",
             data: scheda,
+        },{ 
+            status: 200,
         })
 
     }catch(error: any){

@@ -28,10 +28,9 @@ export async function POST (request: NextRequest)  {
 
         return NextResponse.json({
             message: "utente creato correttamente",
-            data: newUtente,
         },
         {
-            status: 200
+            status: 201
         })
 
     }catch(error: any){

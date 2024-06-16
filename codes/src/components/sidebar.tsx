@@ -40,7 +40,7 @@ export default function Sidebar({ theme, setTheme }: SidebarProps) {
         const updatedTheme = theme === "white" ? "black" : "white";
 
         try {
-            const res = await axios.put('/api/auth/updateUserData', { theme: updatedTheme }, {
+            const res = await axios.put('/api/auth/updateUserTheme', { theme: updatedTheme }, {
                 withCredentials: true,
             });
         
