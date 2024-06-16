@@ -72,16 +72,6 @@ const Scheda = () => {
       fetchData();
     }, [setTheme]);
     
-    const onDelete = async () => {
-        try {
-            await axios.delete("/api/auth/deleteScheda");
-            message.success('Scheda eliminata correttamente');
-
-        } catch (error) {
-            console.error('Si è verificato un errore durante l\'eliminazione della scheda:', error);
-            message.error('Si è verificato un errore durante l\'eliminazione della scheda');
-        }
-    };
 
     useEffect(() => {
         const fetchWorkoutPlan = async () => {
@@ -178,7 +168,6 @@ const Scheda = () => {
                     ))}
                 </div>
             </div>
-            <button onClick={onDelete}>elimina scheda</button>
         </div>
         
     );
