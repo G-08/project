@@ -14,10 +14,6 @@ export async function GET(request: NextRequest, response: NextResponse){
     // console.log("AAAAAAAAAAAAAAAA userId=" + userId);
 
     const user = await User.findById(userId).select("-password");
-
-    if (!user) {
-      return NextResponse.json({ message: 'User not found' }, { status: 404});
-    }
     
     // console.log("AAAAAAAAAAAAAAAA userId=" + user);
 

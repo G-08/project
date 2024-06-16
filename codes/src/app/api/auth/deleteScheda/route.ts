@@ -26,7 +26,7 @@ export async function DELETE(request: NextRequest) {
 
         const scheda = await Scheda.findOne({ userEmail: email });
         if (!scheda) {
-            return NextResponse.json({ message: 'Scheda non trovata' }, { status: 403 });
+            return NextResponse.json({ message: 'Scheda non trovata' }, { status: 404 });
         }
 
         // Recupera tutti gli allenamenti associati alla scheda

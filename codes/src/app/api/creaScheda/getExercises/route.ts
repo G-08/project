@@ -7,10 +7,8 @@ connect();
 
 export async function GET() {
   try {
-    console.log("!! sto in getExercise");
-    //await validateJWT(request);
     const exercises = await Exercise.find({});
-    return NextResponse.json(exercises);
+    return NextResponse.json({ message: "exercise find", exercises }, { status: 200 });  
   } catch (error: any) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }
