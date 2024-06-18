@@ -49,9 +49,10 @@ const CambioPassword = () => {
   
 
   return (
-    <Form onSubmitCapture={handleSubmit}>
-      <h1 className='text-white mr-2'>Form cambio password</h1>
-      <label className='text-white mr-2'>Vecchia password</label>
+    <div className='p-10 rounded-md bg-white w-1/2 m-auto'>
+      <Form onSubmitCapture={handleSubmit}>
+      <h1 className='text-black mr-2'>Form cambio password</h1>
+      <label className='text-black mr-2'>Vecchia password</label>
       <Form.Item name="oldPwd" className='flex-1'>
         <input
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
@@ -62,7 +63,7 @@ const CambioPassword = () => {
           onChange={(e) => setOldPassword(e.target.value)}
         />
       </Form.Item>
-      <label className='text-white mr-2'>Nuova password</label>
+      <label className='text-black mr-2'>Nuova password</label>
       <Form.Item name="newPwd1" className='flex-1'>
         <input
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
@@ -73,7 +74,7 @@ const CambioPassword = () => {
           onChange={(e) => setNewPassword1(e.target.value)}
         />
       </Form.Item>
-      <label className='text-white mr-2'>Ripeti nuova password</label>
+      <label className='text-black mr-2'>Ripeti nuova password</label>
       <Form.Item name="newPwd2" className='flex-1'>
         <input
           className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
@@ -91,6 +92,7 @@ const CambioPassword = () => {
         <Link href="/profilo">Torna al profilo</Link>
       </button>
     </Form>
+    </div>
   );
 }
 
