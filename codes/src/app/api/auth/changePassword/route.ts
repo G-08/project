@@ -67,6 +67,7 @@ import { validateJWT } from '@/helpers/validateJWT';
  */
 
 export async function PUT(request: NextRequest) {
+  
   try {
     await connect();
 
@@ -75,13 +76,11 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ message: 'Token scaduto o non presente' }, { status: 401 });
     }
 
-    // Find the user by ID
     const user = await Utente.findById(userId);
 
     const requestBody = await request.json();
     const { oldPassword, newPassword } = requestBody;
 
-    // Check if the old password matches
     const isMatch = await bcrypt.compare(oldPassword, user.password);
     if (!isMatch) {
       return NextResponse.json({ message: 'password vecchia non corretta' }, { status: 400 });
@@ -90,8 +89,6 @@ export async function PUT(request: NextRequest) {
     // Hash the new password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(newPassword, salt);
-
-    // Update the user's password
     user.password = hashedPassword;
     await user.save();
 
