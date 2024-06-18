@@ -21,7 +21,7 @@ export const getApiDocs = async () => {
       security: [],
       paths: {
         "/auth/changePassword": {
-          post: {
+          put: {
             tags: ["auth"],
             summary: "Change password",
             requestBody: {
@@ -526,14 +526,67 @@ export const getApiDocs = async () => {
                               type: "string",
                               example: "60d0fe4f5311236168a109ca",
                             },
+                            username: {
+                              type: "string",
+                              example: "Example username",
+                            }, 
                             email: {
                               type: "string",
-                              example: "user@example.com",
-                            },
-                            name: {
+                                required: true,
+                                example: "user@example.com",
+                              },
+                            password: {
                               type: "string",
-                              example: "John Doe",
+                              example: "password123",
                             },
+                            firstName: {
+                              type: "string",
+                              example: "FirstName",
+                            },
+                            lastName: {
+                              type: "string",
+                              example: "Lastname",
+                            },
+                            date_of_birth: {
+                              type: "string",
+                              example: "01/01/2000",
+                            },
+                            user_weight: {
+                                type: "number",
+                                example: "80",
+                              },
+                            user_height: {
+                              type: "number",
+                              example: "1,80",
+                            },
+                            thighs: {
+                              type: "number",
+                              example: "20",
+                            },
+                            shoulders: {
+                              type: "number",
+                              example: "30",
+                            },
+                            waist: {
+                              type: "number",
+                              example: "30",
+                            },
+                            biceps: {
+                              type: "number",
+                              example: "15",
+                            },
+                            initial: {
+                              type: "number",
+                              example: "1",
+                            },
+                            goal: {
+                              type: "number",
+                              example: "2",
+                            },
+                            theme: {
+                                type: "string",
+                                example: "white",
+                              }
                           },
                         },
                       },
@@ -605,7 +658,7 @@ export const getApiDocs = async () => {
                             theme: {
                               type: "string",
                               description: "The theme selected by the user",
-                              example: "dark",
+                              example: "black",
                             },
                           },
                         },
@@ -1027,16 +1080,68 @@ export const getApiDocs = async () => {
                   schema: {
                     type: "object",
                     properties: {
-                      userId: { 
+                      username: {
                         type: "string",
-                        example: "user123",
+                        example: "Example username",
+                      }, 
+                      email: {
+                        type: "string",
+                          required: true,
+                          example: "user@example.com",
+                        },
+                      password: {
+                        type: "string",
+                        example: "password123",
                       },
-                      userData: { 
-                        type: "object",
-                        example: { /* example user data */ },
-                      }, // Adjust schema as per actual data structure
+                      firstName: {
+                        type: "string",
+                        example: "FirstName",
+                      },
+                      lastName: {
+                        type: "string",
+                        example: "Lastname",
+                      },
+                      date_of_birth: {
+                        type: "string",
+                        example: "01/01/2000",
+                      },
+                      user_weight: {
+                          type: "number",
+                          example: "80",
+                        },
+                      user_height: {
+                        type: "number",
+                        example: "1,80",
+                      },
+                      thighs: {
+                        type: "number",
+                        example: "20",
+                      },
+                      shoulders: {
+                        type: "number",
+                        example: "30",
+                      },
+                      waist: {
+                        type: "number",
+                        example: "30",
+                      },
+                      biceps: {
+                        type: "number",
+                        example: "15",
+                      },
+                      initial: {
+                        type: "number",
+                        example: "1",
+                      },
+                      goal: {
+                        type: "number",
+                        example: "2",
+                      },
+                      theme: {
+                          type: "string",
+                          example: "white",
+                        }
                     },
-                    required: ["userId", "userData"],
                   },
                 },
               },

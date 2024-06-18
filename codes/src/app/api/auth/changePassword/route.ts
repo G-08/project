@@ -73,7 +73,11 @@ export async function PUT(request: NextRequest) {
 
     const userId = await validateJWT(request);
     if (!userId) {
-      return NextResponse.json({ message: 'Token scaduto o non presente' }, { status: 401 });
+      return NextResponse.json({ 
+        message: 'Token scaduto o non presente' 
+      }, { 
+        status: 401 
+      });
     }
 
     const user = await Utente.findById(userId);
@@ -83,7 +87,11 @@ export async function PUT(request: NextRequest) {
 
     const isMatch = await bcrypt.compare(oldPassword, user.password);
     if (!isMatch) {
-      return NextResponse.json({ message: 'password vecchia non corretta' }, { status: 400 });
+      return NextResponse.json({ 
+        message: 'password vecchia non corretta' 
+      }, { 
+        status: 400 
+      });
     }
 
     // Hash the new password
@@ -92,8 +100,16 @@ export async function PUT(request: NextRequest) {
     user.password = hashedPassword;
     await user.save();
 
-    return NextResponse.json({ message: 'Password cambiata correttamente' }, { status: 200 });
+    return NextResponse.json({ 
+      message: 'Password cambiata correttamente' 
+    }, {
+       status: 200 
+      });
   } catch (error: any) {
-    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ 
+      message: 'Internal server error' 
+    }, { 
+      status: 500 
+    });
   }
 }

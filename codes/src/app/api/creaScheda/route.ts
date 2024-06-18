@@ -294,6 +294,8 @@ export async function POST (request: NextRequest)  {
         return NextResponse.json({
             message: "scheda creata correttamente",
             data: scheda,
+        },{
+            status: 201
         })
 
     }catch(error: any){
