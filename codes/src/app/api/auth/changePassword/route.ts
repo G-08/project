@@ -4,68 +4,6 @@ import connect from '@/utils/db';
 import Utente from '@/models/Utente';
 import { validateJWT } from '@/helpers/validateJWT';
 
-/**
- * @swagger
- * /api/auth/changePassword:
- *   put:
- *     summary: Change user password
- *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               oldPassword:
- *                 type: string
- *                 example: oldpassword123
- *               newPassword:
- *                 type: string
- *                 example: newpassword123
- *     responses:
- *       200:
- *         description: Password changed successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Password cambiata correttamente
- *       400:
- *         description: Old password is incorrect
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: password vecchia non corretta
- *       401:
- *         description: Token expired or missing
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Token scaduto o non presente
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Internal server error
- */
-
 export async function PUT(request: NextRequest) {
   
   try {
