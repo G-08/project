@@ -205,11 +205,11 @@ const UpdateFormFisico = () => {
   };
 
   return (
-    <Form onFinish={handleSubmit}>
+    <Form onFinish={handleSubmit} className='p-10 rounded-md bg-white'>
         <h1>Form aggiornamento dati fisici</h1>
       {Menu.map((menu, index) => (
         <div className='flex items-center mb-4' key={index}>
-          <label className='text-white mr-2'>{menu.name}</label>
+          <label className='text-black mr-2'>{menu.name}</label>
           <Form.Item name={menu.key} className='flex-1'>
             <input
               className="text-black border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"

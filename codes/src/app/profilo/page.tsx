@@ -76,24 +76,29 @@ const Profilo = () => {
     <>
       <div className='flex dark:bg-black dark:text-white'>
         <Sidebar theme={theme} setTheme={setTheme} /> {/* Pass theme and setTheme as props */}
-        <div>
+        <div className='m-10'>
           <h1>Profilo</h1>
           <p>Tema scelto: {theme}</p>
+          <div className='py-2'></div>
           <button className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-2 rounded-md'>
             <Link href="/profilo/formPersonale">Modifica i tuoi dati personali</Link>
           </button>
+          <div className='py-2'></div>
           <button className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-2 rounded-md'>
             <Link href="/profilo/formFisico">Modifica i tuoi dati fisici</Link>
           </button>
+          <div className='py-2'></div>
           <button className='bg-sky-500 hover:bg-sky-700 text-white px-5 py-2 rounded-md'>
             <Link href="/profilo/cambioPassword">Cambia la tua password</Link>
           </button>
+          <div className='py-2'></div>
           <button
             className='bg-red-500 hover:bg-red-700 text-white px-5 py-2 rounded-md ml-4'
             onClick={showModal}
           >
             Delete Account
           </button>
+          <div className='py-2'></div>
         </div>
       </div>
 
