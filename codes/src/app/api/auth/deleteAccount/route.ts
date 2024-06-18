@@ -3,57 +3,6 @@ import connect from '@/utils/db';
 import Utente from '@/models/Utente';
 import { validateJWT } from '@/helpers/validateJWT';
 
-/**
- * @swagger
- * /api/auth/deleteAccount:
- *   delete:
- *     summary: Delete user account
- *     tags: [Auth]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: User deleted successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: User deleted successfully
- *       401:
- *         description: Invalid or missing token
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Invalid or missing token
- *       404:
- *         description: User not found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: User not found
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Internal server error
- */
-
 export async function DELETE(request: NextRequest) {
     try {
         await connect();

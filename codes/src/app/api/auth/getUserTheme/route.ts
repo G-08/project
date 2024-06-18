@@ -3,35 +3,6 @@ import User from '@/models/Utente';
 import { validateJWT } from '@/helpers/validateJWT';
 import { NextRequest, NextResponse } from 'next/server';
 
-/**
- * @swagger
- * /api/auth/getUserData:
- *   get:
- *     summary: Get user data
- *     tags: [Auth]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Successfully retrieved user data
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 data:
- *                   type: object
- *                   properties:
- *                     theme:
- *                       type: string
- *                       description: The theme selected by the user
- *                       example: dark
- *       401:
- *         description: Invalid or missing token
- *       500:
- *         description: Server error
- */
-
 export async function GET(request: NextRequest, response: NextResponse){
   // console.log("AAAAAAAAAAAAAAAA sono in getUserData");
   try {

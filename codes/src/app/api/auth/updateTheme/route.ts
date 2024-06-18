@@ -3,54 +3,6 @@ import User from '@/models/Utente';
 import { validateJWT } from '@/helpers/validateJWT';
 import { NextRequest, NextResponse } from 'next/server';
 
-/**
- * @swagger
- * /api/auth/updateUser:
- *   put:
- *     summary: Update user information
- *     tags: [Auth]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *               firstName:
- *                 type: string
- *               lastName:
- *                 type: string
- *     responses:
- *       200:
- *         description: Successfully updated user
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 data:
- *                   type: object
- *                   properties:
- *                     _id:
- *                       type: string
- *                     email:
- *                       type: string
- *                     firstName:
- *                       type: string
- *                     lastName:
- *                       type: string
- *       401:
- *         description: Invalid or missing token
- *       404:
- *         description: User not found
- *       500:
- *         description: Server error
- */
-
 export async function PUT(request: NextRequest) {
     try {
         await connect();

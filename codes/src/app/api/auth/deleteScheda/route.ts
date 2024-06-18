@@ -6,62 +6,6 @@ import Workout from '@/models/Allenamento';
 import CustomExercise from '@/models/EserciziPersonal';
 import { validateJWT } from '@/helpers/validateJWT';
 
-/**
- * @swagger
- * /api/auth/deleteAccount:
- *   delete:
- *     summary: Delete user account and associated data
- *     description: Deletes a user account along with their scheda, workouts, and custom exercises.
- *     tags:
- *       - Auth
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Scheda e allenamenti eliminati correttamente
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Scheda e allenamenti eliminati correttamente
- *       401:
- *         description: Invalid or missing token
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Invalid or missing token
- *       404:
- *         description: Utente or Scheda not found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   examples:
- *                     Utente non trovato:
- *                       value: Utente non trovato
- *                     Scheda non trovata:
- *                       value: Scheda non trovata
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Internal server error
- */
 export async function DELETE(request: NextRequest) {
   try {
     await connect();

@@ -2,45 +2,6 @@ import Esercizio from "@/models/Esercizio";
 import connect from "@/utils/db";
 import { NextResponse } from "next/server";
 
-/**
- * @swagger
- * /api/exercise:
- *   get:
- *     summary: Get exercises
- *     tags:
- *       - Exercises
- *     responses:
- *       '200':
- *         description: A list of exercises
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: number
- *                     description: Unique identifier for the exercise
- *                   name:
- *                     type: string
- *                     description: Name of the exercise
- *                   muscular_group:
- *                     type: string
- *                     description: Muscular group targeted by the exercise
- *                   exercise_description:
- *                     type: string
- *                     description: Description of how to perform the exercise
- *                   reps_number:
- *                     type: number
- *                     description: Number of repetitions recommended for the exercise
- *                   sets_number:
- *                     type: number
- *                     description: Number of sets recommended for the exercise
- *       '500':
- *         description: Server error
- */
-
 interface Esercizio{
     id: number
     name: string
