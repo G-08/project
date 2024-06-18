@@ -493,6 +493,22 @@ export const getApiDocs = async () => {
                     },
                     },
                 },
+                500: {
+                  description: "Internal server error",
+                  content: {
+                  "application/json": {
+                      schema: {
+                      type: "object",
+                      properties: {
+                          message: {
+                          type: "string",
+                          example: "Internal server error",
+                          },
+                      },
+                      },
+                  },
+                  },
+              },
                 },
             },
         },
@@ -626,6 +642,22 @@ export const getApiDocs = async () => {
                   },
                 },
               },
+              500: {
+                description: "Internal server error",
+                content: {
+                "application/json": {
+                    schema: {
+                    type: "object",
+                    properties: {
+                        message: {
+                        type: "string",
+                        example: "Internal server error",
+                        },
+                    },
+                    },
+                },
+                },
+            },
             },
           },
         },
@@ -683,6 +715,22 @@ export const getApiDocs = async () => {
                   },
                 },
               },
+              500: {
+                description: "Internal server error",
+                content: {
+                "application/json": {
+                    schema: {
+                    type: "object",
+                    properties: {
+                        message: {
+                        type: "string",
+                        example: "Internal server error",
+                        },
+                    },
+                    },
+                },
+                },
+            },
             },
           },
         },
@@ -950,7 +998,7 @@ export const getApiDocs = async () => {
                       properties: {
                         message: {
                           type: "string",
-                          example: "Logout failed",
+                          example: "Internal server error",
                         },
                       },
                     },
@@ -1059,7 +1107,7 @@ export const getApiDocs = async () => {
                     properties: {
                         message: {
                         type: "string",
-                        example: "Logout failed",
+                        example: "Internal server error",
                         },
                     },
                     },
@@ -1220,7 +1268,7 @@ export const getApiDocs = async () => {
                         properties: {
                             message: {
                             type: "string",
-                            example: "Logout failed",
+                            example: "Internal server error",
                             },
                         },
                         },
@@ -1280,7 +1328,7 @@ export const getApiDocs = async () => {
                       properties: {
                         message: {
                           type: "string",
-                          example: "Logout failed",
+                          example: "Internal server error",
                         },
                       },
                     },
@@ -1322,7 +1370,7 @@ export const getApiDocs = async () => {
                       properties: {
                         message: {
                           type: "string",
-                          example: "Logout failed",
+                          example: "Internal server error",
                         },
                       },
                     },
@@ -1400,7 +1448,7 @@ export const getApiDocs = async () => {
                     properties: {
                         message: {
                         type: "string",
-                        example: "Logout failed",
+                        example: "Internal server error",
                         },
                     },
                     },
@@ -1421,18 +1469,67 @@ export const getApiDocs = async () => {
                   schema: {
                     type: "object",
                     properties: {
-                      username: { 
+                      username: {
                         type: "string",
-                        example: "newuser",
-                      },
-                      password: { 
+                        example: "Example username",
+                      }, 
+                      email: {
+                        type: "string",
+                          required: true,
+                          example: "user@example.com",
+                        },
+                      password: {
                         type: "string",
                         example: "password123",
                       },
-                      email: { 
+                      firstName: {
                         type: "string",
-                        example: "user@example.com",
+                        example: "FirstName",
                       },
+                      lastName: {
+                        type: "string",
+                        example: "Lastname",
+                      },
+                      date_of_birth: {
+                        type: "string",
+                        example: "01/01/2000",
+                      },
+                      user_weight: {
+                          type: "number",
+                          example: "80",
+                        },
+                      user_height: {
+                        type: "number",
+                        example: "1,80",
+                      },
+                      thighs: {
+                        type: "number",
+                        example: "20",
+                      },
+                      shoulders: {
+                        type: "number",
+                        example: "30",
+                      },
+                      waist: {
+                        type: "number",
+                        example: "30",
+                      },
+                      biceps: {
+                        type: "number",
+                        example: "15",
+                      },
+                      initial: {
+                        type: "number",
+                        example: "1",
+                      },
+                      goal: {
+                        type: "number",
+                        example: "2",
+                      },
+                      theme: {
+                          type: "string",
+                          example: "white",
+                        }
                     },
                     required: ["username", "password", "email"],
                   },
@@ -1472,6 +1569,22 @@ export const getApiDocs = async () => {
                   },
                 },
               },
+              500: {
+                description: "Internal server error",
+                content: {
+                "application/json": {
+                    schema: {
+                    type: "object",
+                    properties: {
+                        message: {
+                        type: "string",
+                        example: "Internal server error",
+                        },
+                    },
+                    },
+                },
+                },
+            },
             },
           },
         },
