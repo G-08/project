@@ -130,11 +130,12 @@ const Scheda = () => {
     return (
         <div className='flex dark:bg-black dark:text-white'>
             <Sidebar theme={theme} setTheme={setTheme} /> {/* Pass theme and setTheme as props */}
-            <div>
+            <div className="m-auto">
                 <h1>Scheda allenamento</h1>
+                <div className="py-2"></div>
                 <div>
                     {muscleGroups.map(group => (
-                        <button key={group} onClick={() => setSelectedGroup(group)}>
+                        <button className='bg-[#3b77dd] text-white p-1 mx-5' key={group} onClick={() => setSelectedGroup(group)}>
                             {group}
                         </button>
                     ))}
