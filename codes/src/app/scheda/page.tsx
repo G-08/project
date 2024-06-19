@@ -53,9 +53,10 @@ const getTheme = async () => {
 };
 
 const Scheda = () => {
-    const [workoutPlan, setWorkoutPlan] = useState(null);
-    const [error, setError] = useState(String);
+    const [workoutPlan, setWorkoutPlan] = useState<WorkoutPlan | null>(null);
+    const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
+    const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
     const router = useRouter();
     const [theme, setTheme] = useState(""); // State lifted up
 
@@ -107,73 +108,41 @@ const Scheda = () => {
         return <div>No workout plan found.</div>;
     }
 
+    const muscleGroups = ["Gambe", "Schiena", "Petto", "Braccia", "Addome"];
+
+    const renderExercises = (group: string) => {
+        const workout = (workoutPlan as any)[group.toLowerCase()];
+        return (
+            <div>
+                <h2>{group}</h2>
+                {workout.exercises.map((exercise: Exercise, index: number) => (
+                    <div key={index}>
+                        <h3>{exercise.name}</h3>
+                        <p>{exercise.exercise_description}</p>
+                        <p>Reps: {exercise.reps_number}</p>
+                        <p>Sets: {exercise.sets_number}</p>
+                    </div>
+                ))}
+            </div>
+        );
+    };
+
     return (
         <div className='flex dark:bg-black dark:text-white'>
             <Sidebar theme={theme} setTheme={setTheme} /> {/* Pass theme and setTheme as props */}
             <div>
                 <h1>Scheda allenamento</h1>
                 <div>
-                    <h2>Gambe</h2>
-                    {workoutPlan.gambe.exercises.map((exercise : Exercise, index) => (
-                    <div key={index}>
-                        <h3>{exercise.name}</h3>
-                        <p>{exercise.exercise_description}</p>
-                        <p>Reps: {exercise.reps_number}</p>
-                        <p>Sets: {exercise.sets_number}</p>
-                    </div>
+                    {muscleGroups.map(group => (
+                        <button key={group} onClick={() => setSelectedGroup(group)}>
+                            {group}
+                        </button>
                     ))}
                 </div>
-                <div>
-                    <h2>Schiena</h2>
-                    {workoutPlan.schiena.exercises.map((exercise, index) => (
-                    <div key={index}>
-                        <h3>{exercise.name}</h3>
-                        <p>{exercise.exercise_description}</p>
-                        <p>Reps: {exercise.reps_number}</p>
-                        <p>Sets: {exercise.sets_number}</p>
-                    </div>
-                    ))}
-                </div>
-                <div>
-                    <h2>Petto</h2>
-                    {workoutPlan.petto.exercises.map((exercise, index) => (
-                    <div key={index}>
-                        <h3>{exercise.name}</h3>
-                        <p>{exercise.exercise_description}</p>
-                        <p>Reps: {exercise.reps_number}</p>
-                        <p>Sets: {exercise.sets_number}</p>
-                    </div>
-                    ))}
-                </div>
-                <div>
-                    <h2>Braccia</h2>
-                    {workoutPlan.braccia.exercises.map((exercise, index) => (
-                    <div key={index}>
-                        <h3>{exercise.name}</h3>
-                        <p>{exercise.exercise_description}</p>
-                        <p>Reps: {exercise.reps_number}</p>
-                        <p>Sets: {exercise.sets_number}</p>
-                    </div>
-                    ))}
-                </div>
-                <div>
-                    <h2>Addome</h2>
-                    {workoutPlan.addome.exercises.map((exercise, index) => (
-                    <div key={index}>
-                        <h3>{exercise.name}</h3>
-                        <p>{exercise.exercise_description}</p>
-                        <p>Reps: {exercise.reps_number}</p>
-                        <p>Sets: {exercise.sets_number}</p>
-                    </div>
-                    ))}
-                </div>
+                {selectedGroup && renderExercises(selectedGroup)}
             </div>
         </div>
-        
     );
 };
-        
-        
-    
 
-export default Scheda
+export default Scheda;
